@@ -11,7 +11,6 @@ namespace SoloCapstoneProject.Models
 
         [Key]
         public int CalendarId { get; set; }
-
         public string Monday { get; set; }
         public string Tuesday { get; set; }
         public string Wednesday { get; set; }

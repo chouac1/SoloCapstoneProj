@@ -18,11 +18,18 @@ namespace SoloCapstoneProject.Models
         [DisplayName("Last Name")]
         public string LastName { get; set; }
 
+        public string Address { get; set; }
+        public string City { get; set; }
+        public string Zipcode { get; set; }
+
         [ForeignKey("Users")]
         public int UserId { get; set; }
 
-        Users users { get; set; }
+        public Users Users { get; set; }
 
+        [ForeignKey("Order")]
+        public int OrderId { get; set; }
+        public Order Order { get; set; }
 
 
     }
