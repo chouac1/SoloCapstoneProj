@@ -7,16 +7,18 @@ using System.Threading.Tasks;
 
 namespace SoloCapstoneProject.Models
 {
-    public class Services
+    public class ProviderAvailability
     {
 
         [Key]
-        public int ServiceId { get; set; }
-        public string TypeOfService { get; set; }
-        public string Price { get; set; }
-        public bool IsActive { get; set; }
+        public int ProviderAvailablityId { get; set; }
+        public string DayOfWeek { get; set; }
+        public string OpeningHour { get; set; }
+        public string ClosingHour { get; set; }
+
         [ForeignKey("Providers")]
         public int ProviderId { get; set; }
         public Providers Providers { get; set; }
+
     }
 }
