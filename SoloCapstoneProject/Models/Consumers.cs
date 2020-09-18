@@ -20,8 +20,9 @@ namespace SoloCapstoneProject.Models
         public string Zipcode { get; set; }
 
         [ForeignKey("IdentityUser")]
-        public int UserId { get; set; }
+        public string IdentityUserId { get; set; }
         public IdentityUser IdentityUser { get; set; }
+
 
     }
 }
