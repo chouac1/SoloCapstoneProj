@@ -14,6 +14,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
+using SoloCapstoneProject.Contracts;
 
 namespace SoloCapstoneProject
 {
@@ -41,6 +42,8 @@ namespace SoloCapstoneProject
             {
                 config.Filters.Add(typeof(GlobalRouting));
             });
+
+            services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
 
             services.AddControllersWithViews();
             services.AddRazorPages();
