@@ -10,7 +10,7 @@ using SoloCapstoneProject.Data;
 namespace SoloCapstoneProject.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200922130943_INIT")]
+    [Migration("20200922202644_INIT")]
     partial class INIT
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -50,10 +50,24 @@ namespace SoloCapstoneProject.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "503e2782-7d23-4815-84a8-0419f365cacf",
-                            ConcurrencyStamp = "ce21e2f9-49fc-48d1-95fa-f6adeec5a44e",
+                            Id = "c2bd7c56-44fc-4428-9761-7c4a046c84e1",
+                            ConcurrencyStamp = "031cbcf2-b0c6-49d9-9c27-43dad23f5206",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
+                        },
+                        new
+                        {
+                            Id = "c9f26a01-0c92-4141-844d-a852e4bba47a",
+                            ConcurrencyStamp = "aa96bafb-b331-4f3e-9ffa-815215a27242",
+                            Name = "Consumer",
+                            NormalizedName = "CONSUMER"
+                        },
+                        new
+                        {
+                            Id = "7c108608-97ee-4366-9b88-b59c0fd72e00",
+                            ConcurrencyStamp = "f71017c9-571c-4ce5-ae7d-2b59e1296268",
+                            Name = "Provider",
+                            NormalizedName = "PROVIDER"
                         });
                 });
 
@@ -144,6 +158,76 @@ namespace SoloCapstoneProject.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "78e5203f-174a-4dca-96cb-40dd2a868205",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "fd2c3120-eb11-454d-8e13-dcef3c2c65ec",
+                            Email = "admin@admin.com",
+                            EmailConfirmed = false,
+                            LockoutEnabled = true,
+                            NormalizedEmail = "ADMIN@ADMIN.COM",
+                            NormalizedUserName = "ADMIN@ADMIN.COM",
+                            PasswordHash = "AQAAAAEAACcQAAAAELetqK1tdDcQ1tCJVKaPqBZg9tX1yB03jaIS2odXHCLn4HlHF0uWKN28EdyOf5yb9w==",
+                            PhoneNumber = "000-000-0000",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "OIAXG7WPVGDGGHI43DKZEH2E76IJ5UJG",
+                            TwoFactorEnabled = false,
+                            UserName = "admin@admin.com"
+                        },
+                        new
+                        {
+                            Id = "5e1c8b30-314c-44ed-b52d-98df6549b8d8",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "2fc1dd2e-4196-4b84-b33e-6a2704ac5ba3",
+                            Email = "consumer1@test.com",
+                            EmailConfirmed = false,
+                            LockoutEnabled = true,
+                            NormalizedEmail = "CONSUMER1@TEST.COM",
+                            NormalizedUserName = "CONSUMER1@TEST.COM",
+                            PasswordHash = "AQAAAAEAACcQAAAAEAWQL9XdogA3L8VqBRDO0jZZXkMdtM22Pg01cpQwu4oZOUN1/wYYRxwIi8ivpJGSUg==",
+                            PhoneNumber = "111-111-1111",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "HZ3FAHIT2KUMEC7PUCWUR6I5KY36DZFR",
+                            TwoFactorEnabled = false,
+                            UserName = "consumer1@test.com"
+                        },
+                        new
+                        {
+                            Id = "67ce75b3-f188-44f1-975f-a650b9c8ad52",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "6bb19bbd-2d15-4abc-83fc-b7f95032ea39",
+                            Email = "consumer2@test.com",
+                            EmailConfirmed = false,
+                            LockoutEnabled = true,
+                            NormalizedEmail = "CONSUMER2@TEST.COM",
+                            NormalizedUserName = "CONSUMER2@TEST.COM",
+                            PasswordHash = "AQAAAAEAACcQAAAAEK1dB/PVqfTC8DcFiupV/HKn/GGdcvoA3MBoJ2tN9YiZvtn9xwzWAUKSm6WIxUkoSg==",
+                            PhoneNumber = "222-222-2222",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "YC2OKQG2JDEXUIP6Q6K2XZSR7RYY5Q2Y",
+                            TwoFactorEnabled = false,
+                            UserName = "consumer2@test.com"
+                        },
+                        new
+                        {
+                            Id = "6bd1cc7f-eaa6-4f78-9599-a99f6b1b7593",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "4ef57594-2a66-496d-8c65-fb07bacb25a7",
+                            Email = "consumer3@test.com",
+                            EmailConfirmed = false,
+                            LockoutEnabled = true,
+                            NormalizedEmail = "CONSUMER3@TEST.COM",
+                            NormalizedUserName = "CONSUMER3@TEST.COM",
+                            PasswordHash = "AQAAAAEAACcQAAAAELLdplS8GfW7zKac+FaD1NfioKkuybbyqEPt2WG8oI7KLloFLkRZhpmcNQhHOE3JJQ==",
+                            PhoneNumber = "333-333-3333",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "BJXEHOICZWFFMDNRV7AGI2RVZ67ZM3Z3",
+                            TwoFactorEnabled = false,
+                            UserName = "consumer3@test.com"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -226,7 +310,7 @@ namespace SoloCapstoneProject.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("SoloCapstoneProject.Models.Consumers", b =>
+            modelBuilder.Entity("SoloCapstoneProject.Models.Consumer", b =>
                 {
                     b.Property<int>("ConsumerId")
                         .ValueGeneratedOnAdd()
@@ -248,6 +332,9 @@ namespace SoloCapstoneProject.Migrations
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("State")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Zipcode")
                         .HasColumnType("nvarchar(max)");
 
@@ -256,9 +343,44 @@ namespace SoloCapstoneProject.Migrations
                     b.HasIndex("IdentityUserId");
 
                     b.ToTable("Consumers");
+
+                    b.HasData(
+                        new
+                        {
+                            ConsumerId = 1,
+                            Address = "7814 W Silver Spring Dr.",
+                            City = "Milwaukee",
+                            FirstName = "Jacob",
+                            IdentityUserId = "5e1c8b30-314c-44ed-b52d-98df6549b8d8",
+                            LastName = "Townsend",
+                            State = "Wisconsin",
+                            Zipcode = "53218"
+                        },
+                        new
+                        {
+                            ConsumerId = 2,
+                            Address = "7830 W Silver Spring Dr.",
+                            City = "Milwaukee",
+                            FirstName = "Eli",
+                            IdentityUserId = "67ce75b3-f188-44f1-975f-a650b9c8ad52",
+                            LastName = "Manny",
+                            State = "Wisconsin",
+                            Zipcode = "53218"
+                        },
+                        new
+                        {
+                            ConsumerId = 3,
+                            Address = "7818 W Silver Spring Dr.",
+                            City = "Milwaukee",
+                            FirstName = "Steve",
+                            IdentityUserId = "6bd1cc7f-eaa6-4f78-9599-a99f6b1b7593",
+                            LastName = "Rogers",
+                            State = "Wisconsin",
+                            Zipcode = "53218"
+                        });
                 });
 
-            modelBuilder.Entity("SoloCapstoneProject.Models.Orders", b =>
+            modelBuilder.Entity("SoloCapstoneProject.Models.Order", b =>
                 {
                     b.Property<int>("OrderId")
                         .ValueGeneratedOnAdd()
@@ -266,9 +388,6 @@ namespace SoloCapstoneProject.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("ConsumerId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ConsumersConsumerId")
                         .HasColumnType("int");
 
                     b.Property<double?>("ProviderEstimate")
@@ -282,11 +401,46 @@ namespace SoloCapstoneProject.Migrations
 
                     b.HasKey("OrderId");
 
-                    b.HasIndex("ConsumersConsumerId");
+                    b.HasIndex("ConsumerId");
 
                     b.HasIndex("ServiceId");
 
                     b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("SoloCapstoneProject.Models.Provider", b =>
+                {
+                    b.Property<int>("ProviderId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("City")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("IdentityUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("State")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Zipcode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ProviderId");
+
+                    b.HasIndex("IdentityUserId");
+
+                    b.ToTable("Providers");
                 });
 
             modelBuilder.Entity("SoloCapstoneProject.Models.ProviderAvailability", b =>
@@ -315,39 +469,7 @@ namespace SoloCapstoneProject.Migrations
                     b.ToTable("ProviderAvailabilities");
                 });
 
-            modelBuilder.Entity("SoloCapstoneProject.Models.Providers", b =>
-                {
-                    b.Property<int>("ProviderId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Address")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("City")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FirstName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("IdentityUserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("LastName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Zipcode")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("ProviderId");
-
-                    b.HasIndex("IdentityUserId");
-
-                    b.ToTable("Providers");
-                });
-
-            modelBuilder.Entity("SoloCapstoneProject.Models.Services", b =>
+            modelBuilder.Entity("SoloCapstoneProject.Models.Service", b =>
                 {
                     b.Property<int>("ServiceId")
                         .ValueGeneratedOnAdd()
@@ -424,45 +546,47 @@ namespace SoloCapstoneProject.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("SoloCapstoneProject.Models.Consumers", b =>
+            modelBuilder.Entity("SoloCapstoneProject.Models.Consumer", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "IdentityUser")
                         .WithMany()
                         .HasForeignKey("IdentityUserId");
                 });
 
-            modelBuilder.Entity("SoloCapstoneProject.Models.Orders", b =>
+            modelBuilder.Entity("SoloCapstoneProject.Models.Order", b =>
                 {
-                    b.HasOne("SoloCapstoneProject.Models.Consumers", "Consumers")
+                    b.HasOne("SoloCapstoneProject.Models.Consumer", "Consumers")
                         .WithMany()
-                        .HasForeignKey("ConsumersConsumerId");
+                        .HasForeignKey("ConsumerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.HasOne("SoloCapstoneProject.Models.Services", "Services")
+                    b.HasOne("SoloCapstoneProject.Models.Service", "Services")
                         .WithMany()
                         .HasForeignKey("ServiceId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("SoloCapstoneProject.Models.ProviderAvailability", b =>
-                {
-                    b.HasOne("SoloCapstoneProject.Models.Providers", "Providers")
-                        .WithMany()
-                        .HasForeignKey("ProviderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("SoloCapstoneProject.Models.Providers", b =>
+            modelBuilder.Entity("SoloCapstoneProject.Models.Provider", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "IdentityUser")
                         .WithMany()
                         .HasForeignKey("IdentityUserId");
                 });
 
-            modelBuilder.Entity("SoloCapstoneProject.Models.Services", b =>
+            modelBuilder.Entity("SoloCapstoneProject.Models.ProviderAvailability", b =>
                 {
-                    b.HasOne("SoloCapstoneProject.Models.Providers", "Providers")
+                    b.HasOne("SoloCapstoneProject.Models.Provider", "Providers")
+                        .WithMany()
+                        .HasForeignKey("ProviderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("SoloCapstoneProject.Models.Service", b =>
+                {
+                    b.HasOne("SoloCapstoneProject.Models.Provider", "Providers")
                         .WithMany()
                         .HasForeignKey("ProviderId")
                         .OnDelete(DeleteBehavior.Cascade)

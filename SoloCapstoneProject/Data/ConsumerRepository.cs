@@ -7,16 +7,16 @@ using System.Threading.Tasks;
 
 namespace SoloCapstoneProject.Data
 {
-    public class ConsumerRepository : RepositoryBase<Consumers>, IConsumerRepository
+    public class ConsumerRepository : RepositoryBase<Consumer>, IConsumerRepository
     {
         public ConsumerRepository(ApplicationDbContext applicationDbContext) : base(applicationDbContext)
         {
         }
 
-        public void CreateConsumerAccount(Consumers consumers) => Create(consumers);
+        public void CreateConsumerAccount(Consumer consumers) => Create(consumers);
 
-        public void DeleteConsumerAccount(Consumers consumers) => Delete(consumers);
-        public Consumers GetConsumerId(int consumerId)
+        public void DeleteConsumerAccount(Consumer consumers) => Delete(consumers);
+        public Consumer GetConsumerId(int consumerId)
         {
             var consumerAccount = FindByCondition(c => c.ConsumerId.Equals(consumerId)).SingleOrDefault();
             return consumerAccount;
@@ -27,6 +27,6 @@ namespace SoloCapstoneProject.Data
             ApplicationDbContext.SaveChanges();
         }
 
-        public void UpdateConsumerAccount(Consumers consumers) => Update(consumers);
+        public void UpdateConsumerAccount(Consumer consumers) => Update(consumers);
     }
 }

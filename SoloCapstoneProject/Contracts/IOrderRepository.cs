@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace SoloCapstoneProject.Contracts
 {
-    public interface IOrderRepository : IRepositoryBase<Orders>
+    public interface IOrderRepository : IRepositoryBase<Order>
     {
 
-        Orders GetOrdersId(int orderId);
-        void CreateOrder(Orders orders);
-        void UpdateOrder(Orders orders);
-        void DeleteOrder(Orders orders);
+        Order GetOrdersId(int orderId);
+        void CreateOrder(Order orders);
+        void UpdateOrder(Order orders);
+        void DeleteOrder(Order orders);
         void Save();
 
     }

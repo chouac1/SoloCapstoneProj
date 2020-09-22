@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace SoloCapstoneProject.Contracts
 {
-    public interface IServiceRepository : IRepositoryBase<Services>
+    public interface IServiceRepository : IRepositoryBase<Service>
     {
-        Services GetServiceId(int id);
-        void CreateServiceAccount(Services services);
-        void UpdateServiceAccount(Services services);
-        void DeleteServiceAccount(Services services);
+        Service GetServiceId(int id);
+        void CreateServiceAccount(Service services);
+        void UpdateServiceAccount(Service services);
+        void DeleteServiceAccount(Service services);
         void Save();
     }
 }

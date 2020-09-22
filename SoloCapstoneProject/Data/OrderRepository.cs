@@ -7,17 +7,17 @@ using System.Threading.Tasks;
 
 namespace SoloCapstoneProject.Data
 {
-    public class OrderRepository : RepositoryBase<Orders>, IOrderRepository
+    public class OrderRepository : RepositoryBase<Order>, IOrderRepository
     {
         public OrderRepository(ApplicationDbContext applicationDbContext) : base(applicationDbContext)
         {
         }
 
-        public void CreateOrder(Orders orders) => Create(orders);
+        public void CreateOrder(Order orders) => Create(orders);
 
-        public void DeleteOrder(Orders orders) => Delete(orders);
+        public void DeleteOrder(Order orders) => Delete(orders);
 
-        public Orders GetOrdersId(int orderId)
+        public Order GetOrdersId(int orderId)
         {
             var orderAccount = FindByCondition(o => o.OrderId == orderId).SingleOrDefault();
             return orderAccount;
@@ -28,6 +28,6 @@ namespace SoloCapstoneProject.Data
             ApplicationDbContext.SaveChanges();
         }
 
-        public void UpdateOrder(Orders orders) => Update(orders);
+        public void UpdateOrder(Order orders) => Update(orders);
     }
 }

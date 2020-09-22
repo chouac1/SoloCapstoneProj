@@ -18,7 +18,7 @@ namespace SoloCapstoneProject.Models
 
         [ForeignKey("Providers")]
         public int ProviderId { get; set; }
-        public Providers Providers { get; set; }
+        public Provider Providers { get; set; }
 
     }
 }

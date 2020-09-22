@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace SoloCapstoneProject.Contracts
 {
-    public interface IConsumerRepository : IRepositoryBase<Consumers>
+    public interface IConsumerRepository : IRepositoryBase<Consumer>
     {
 
-        Consumers GetConsumerId(int consumerId);
-        void CreateConsumerAccount(Consumers consumers);
-        void UpdateConsumerAccount(Consumers consumers);
-        void DeleteConsumerAccount(Consumers consumers);
+        Consumer GetConsumerId(int consumerId);
+        void CreateConsumerAccount(Consumer consumers);
+        void UpdateConsumerAccount(Consumer consumers);
+        void DeleteConsumerAccount(Consumer consumers);
         void Save();
 
     }

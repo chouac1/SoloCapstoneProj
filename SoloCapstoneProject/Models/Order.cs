@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SoloCapstoneProject.Models
 {
-    public class Orders
+    public class Order
     {
 
         [Key]
@@ -17,11 +17,11 @@ namespace SoloCapstoneProject.Models
 
         [ForeignKey("Consumer")]
         public int ConsumerId { get; set; }
-        public Consumers Consumers { get; set; }
+        public Consumer Consumers { get; set; }
 
         [ForeignKey("Services")]
         public int ServiceId { get; set; }
 
-        public Services Services { get; set; }
+        public Service Services { get; set; }
     }
 }

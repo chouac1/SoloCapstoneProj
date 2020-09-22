@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SoloCapstoneProject.Models
 {
-    public class Services
+    public class Service
     {
 
         [Key]
@@ -17,6 +17,6 @@ namespace SoloCapstoneProject.Models
         public bool IsActive { get; set; }
         [ForeignKey("Providers")]
         public int ProviderId { get; set; }
-        public Providers Providers { get; set; }
+        public Provider Providers { get; set; }
     }
 }
