@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SoloCapstoneProject.Data;
 
-namespace SoloCapstoneProject.Data.Migrations
+namespace SoloCapstoneProject.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200918145011_Init")]
-    partial class Init
+    [Migration("20200922130943_INIT")]
+    partial class INIT
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -50,8 +50,8 @@ namespace SoloCapstoneProject.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "32fda8fc-3b92-497f-91a0-0f147882386d",
-                            ConcurrencyStamp = "4b0c44f1-e942-422b-9828-81796163ccbd",
+                            Id = "503e2782-7d23-4815-84a8-0419f365cacf",
+                            ConcurrencyStamp = "ce21e2f9-49fc-48d1-95fa-f6adeec5a44e",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });

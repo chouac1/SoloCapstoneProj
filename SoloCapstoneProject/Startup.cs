@@ -15,6 +15,7 @@ using Microsoft.Extensions.Hosting;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
 using SoloCapstoneProject.Contracts;
+using SoloCapstoneProject.ActionFilters;
 
 namespace SoloCapstoneProject
 {
@@ -37,7 +38,8 @@ namespace SoloCapstoneProject
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultUI()
                 .AddDefaultTokenProviders();
-                services.AddScoped<ClaimsPrincipal>(s => s.GetService<IHttpContextAccessor>().HttpContext.User);
+
+            services.AddScoped<ClaimsPrincipal>(s => s.GetService<IHttpContextAccessor>().HttpContext.User);
             services.AddControllers(config =>
             {
                 config.Filters.Add(typeof(GlobalRouting));

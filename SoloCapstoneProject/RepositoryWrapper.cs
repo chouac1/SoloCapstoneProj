@@ -10,18 +10,18 @@ namespace SoloCapstoneProject
     public class RepositoryWrapper : IRepositoryWrapper
     {
         private ApplicationDbContext _context;
-        private IConsumersRepository _consumers;
+        private IConsumerRepository _consumers;
         private IOrderRepository _orders;
         private IProviderAvailabilityRepository _providerAvailability;
-        private IProvidersRepository _providers;
-        private IServicesRepository _services;
+        private IProviderRepository _providers;
+        private IServiceRepository _services;
 
         public RepositoryWrapper(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        public IConsumersRepository Consumers
+        public IConsumerRepository Consumers
         {
             get
             {
@@ -57,7 +57,7 @@ namespace SoloCapstoneProject
             }
         }
 
-        public IProvidersRepository Providers
+        public IProviderRepository Providers
         {
             get
             {
@@ -69,7 +69,7 @@ namespace SoloCapstoneProject
             }
         }
 
-        public IServicesRepository Services
+        public IServiceRepository Services
         {
             get
             {
