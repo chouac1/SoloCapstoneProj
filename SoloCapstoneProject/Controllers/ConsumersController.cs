@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using SoloCapstoneProject.Contracts;
 using SoloCapstoneProject.Data;
 using SoloCapstoneProject.Models;
 
@@ -13,17 +16,28 @@ namespace SoloCapstoneProject.Controllers
     public class ConsumersController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private IRepositoryWrapper _repo;
 
-        public ConsumersController(ApplicationDbContext context)
+        public ConsumersController(ApplicationDbContext context, IRepositoryWrapper repo)
         {
             _context = context;
+            _repo = repo;
         }
 
         // GET: Consumers
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Consumers.Include(c => c.IdentityUser);
-            return View(await applicationDbContext.ToListAsync());
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var foundId = _context.Consumers.Where(i => i.IdentityUserId == userId).SingleOrDefault();
+            
+
+
+            if (foundId == null)
+            {
+                return View("Create");
+            }
+            
+            return View("Details");
         }
 
         // GET: Consumers/Details/5
@@ -59,6 +73,9 @@ namespace SoloCapstoneProject.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Consumer consumer)
         {
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            consumer.IdentityUserId = userId;
+
             if (ModelState.IsValid)
             {
                 _context.Add(consumer);
@@ -66,7 +83,7 @@ namespace SoloCapstoneProject.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id", consumer.IdentityUserId);
-            return View(consumer);
+            return View("details", consumer);
         }
 
         // GET: Consumers/Edit/5
@@ -91,7 +108,7 @@ namespace SoloCapstoneProject.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ConsumerId,FirstName,LastName,Address,City,Zipcode,IdentityUserId")] Consumer consumer)
+        public async Task<IActionResult> Edit(int id, Consumer consumer)
         {
             if (id != consumer.ConsumerId)
             {
@@ -150,6 +167,14 @@ namespace SoloCapstoneProject.Controllers
             _context.Consumers.Remove(consumer);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+        }
+
+        //Consumers/ConsumerList
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> ConsumerList()
+        {
+            var applicationDbContext = _context.Consumers.Include(c => c.IdentityUser);
+            return View(await applicationDbContext.ToListAsync());
         }
 
         private bool ConsumerExists(int id)

@@ -225,6 +225,57 @@ namespace SoloCapstoneProject.Migrations
                             SecurityStamp = "BJXEHOICZWFFMDNRV7AGI2RVZ67ZM3Z3",
                             TwoFactorEnabled = false,
                             UserName = "consumer3@test.com"
+                        },
+                        new
+                        {
+                            Id = "2be63164-b8af-4596-9796-93ff8cec4bf3",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "14dbbc88-fd6c-46f7-9ef8-5a5da478afee",
+                            Email = "provider1@test.com",
+                            EmailConfirmed = false,
+                            LockoutEnabled = true,
+                            NormalizedEmail = "PROVIDER1@TEST.COM",
+                            NormalizedUserName = "PROVIDER1@TEST.COM",
+                            PasswordHash = "AQAAAAEAACcQAAAAEMFLDcxEh+gWl+lnKQOtLBvzvYODU/liVtSTNnj/p5ITsxmajBe6/azXMeUCYwKVkA==",
+                            PhoneNumber = "444-444-4444",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "HTIXEQVI3JYR65ZTUZTL7AQ57REKRJCK",
+                            TwoFactorEnabled = false,
+                            UserName = "provider1@test.com"
+                        },
+                        new
+                        {
+                            Id = "eef8a61c-1139-4a74-98f1-e06da7dce470",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "125170f7-525a-4ce3-ad00-2e207d739924",
+                            Email = "provider2@test.com",
+                            EmailConfirmed = false,
+                            LockoutEnabled = true,
+                            NormalizedEmail = "PROVIDER2@TEST.COM",
+                            NormalizedUserName = "PROVIDER2@TEST.COM",
+                            PasswordHash = "AQAAAAEAACcQAAAAEPxi84PKc/Sg0cogUGqscB2/U8KQEv9FJCQ8IaCeewrgVa1BZegLI1Wia/v1qSuwGA==",
+                            PhoneNumber = "555-555-5555",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "JH53TNUXDPNYNVQPH7ISKAIJIZN32ZGF",
+                            TwoFactorEnabled = false,
+                            UserName = "provider2@test.com"
+                        },
+                        new
+                        {
+                            Id = "efaef2cb-19ca-4141-9f1b-23f8ca48d99b",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "ebc8172e-ad24-43d7-8833-f790bb180d88",
+                            Email = "provider3@test.com",
+                            EmailConfirmed = false,
+                            LockoutEnabled = true,
+                            NormalizedEmail = "PROVIDER3@TEST.COM",
+                            NormalizedUserName = "PROVIDER3@TEST.COM",
+                            PasswordHash = "AQAAAAEAACcQAAAAEFDWf0ud4BpCDSyizTthtta/CRBm+5vYGv0UNuJ3LbrNakXq23qgzhBWVquC4PR/pg==",
+                            PhoneNumber = "666-666-6666",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "EJ6OCU5B4QALLAHLLIL3LFSZVCS3BJB7",
+                            TwoFactorEnabled = false,
+                            UserName = "provider3@test.com"
                         });
                 });
 
@@ -346,7 +397,7 @@ namespace SoloCapstoneProject.Migrations
                         new
                         {
                             ConsumerId = 1,
-                            Address = "7814 W Silver Spring Dr.",
+                            Address = "7814 W Silver Spring Drive",
                             City = "Milwaukee",
                             FirstName = "Jacob",
                             IdentityUserId = "5e1c8b30-314c-44ed-b52d-98df6549b8d8",
@@ -357,7 +408,7 @@ namespace SoloCapstoneProject.Migrations
                         new
                         {
                             ConsumerId = 2,
-                            Address = "7830 W Silver Spring Dr.",
+                            Address = "7830 W Silver Spring Drive",
                             City = "Milwaukee",
                             FirstName = "Eli",
                             IdentityUserId = "67ce75b3-f188-44f1-975f-a650b9c8ad52",
@@ -368,7 +419,7 @@ namespace SoloCapstoneProject.Migrations
                         new
                         {
                             ConsumerId = 3,
-                            Address = "7818 W Silver Spring Dr.",
+                            Address = "7818 W Silver Spring Drive",
                             City = "Milwaukee",
                             FirstName = "Steve",
                             IdentityUserId = "6bd1cc7f-eaa6-4f78-9599-a99f6b1b7593",
@@ -439,6 +490,41 @@ namespace SoloCapstoneProject.Migrations
                     b.HasIndex("IdentityUserId");
 
                     b.ToTable("Providers");
+
+                    b.HasData(
+                        new
+                        {
+                            ProviderId = 1,
+                            Address = "5339 W Radcliffe Drive",
+                            City = "Brown Deer",
+                            FirstName = "Peter",
+                            IdentityUserId = "2be63164-b8af-4596-9796-93ff8cec4bf3",
+                            LastName = "Parker",
+                            State = "Wisconsin",
+                            Zipcode = "53223"
+                        },
+                        new
+                        {
+                            ProviderId = 2,
+                            Address = "5391 W Radcliffe Drive",
+                            City = "Brown Deer",
+                            FirstName = "Clark",
+                            IdentityUserId = "eef8a61c-1139-4a74-98f1-e06da7dce470",
+                            LastName = "Kent",
+                            State = "Wisconsin",
+                            Zipcode = "53223"
+                        },
+                        new
+                        {
+                            ProviderId = 3,
+                            Address = "5305 W Radcliffe Drive",
+                            City = "Brown Deer",
+                            FirstName = "Barry",
+                            IdentityUserId = "efaef2cb-19ca-4141-9f1b-23f8ca48d99b",
+                            LastName = "Allen",
+                            State = "Wisconsin",
+                            Zipcode = "53223"
+                        });
                 });
 
             modelBuilder.Entity("SoloCapstoneProject.Models.ProviderAvailability", b =>

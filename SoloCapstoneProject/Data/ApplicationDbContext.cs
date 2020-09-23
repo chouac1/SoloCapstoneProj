@@ -128,23 +128,87 @@ namespace SoloCapstoneProject.Data
                 LockoutEnd = null,
                 LockoutEnabled = true,
                 AccessFailedCount = 0,
+            },
+
+            new IdentityUser
+            {
+                Id = "2be63164-b8af-4596-9796-93ff8cec4bf3",
+                UserName = "provider1@test.com",
+                NormalizedUserName = "PROVIDER1@TEST.COM",
+                Email = "provider1@test.com",
+                NormalizedEmail = "PROVIDER1@TEST.COM",
+                EmailConfirmed = false,
+                PasswordHash = "AQAAAAEAACcQAAAAEMFLDcxEh+gWl+lnKQOtLBvzvYODU/liVtSTNnj/p5ITsxmajBe6/azXMeUCYwKVkA==",
+                SecurityStamp = "HTIXEQVI3JYR65ZTUZTL7AQ57REKRJCK",
+                ConcurrencyStamp = "14dbbc88-fd6c-46f7-9ef8-5a5da478afee",
+                PhoneNumber = "444-444-4444",
+                PhoneNumberConfirmed = false,
+                TwoFactorEnabled = false,
+                LockoutEnd = null,
+                LockoutEnabled = true,
+                AccessFailedCount = 0,
+            },
+
+            new IdentityUser
+            {
+                Id = "eef8a61c-1139-4a74-98f1-e06da7dce470",
+                UserName = "provider2@test.com",
+                NormalizedUserName = "PROVIDER2@TEST.COM",
+                Email = "provider2@test.com",
+                NormalizedEmail = "PROVIDER2@TEST.COM",
+                EmailConfirmed = false,
+                PasswordHash = "AQAAAAEAACcQAAAAEPxi84PKc/Sg0cogUGqscB2/U8KQEv9FJCQ8IaCeewrgVa1BZegLI1Wia/v1qSuwGA==",
+                SecurityStamp = "JH53TNUXDPNYNVQPH7ISKAIJIZN32ZGF",
+                ConcurrencyStamp = "125170f7-525a-4ce3-ad00-2e207d739924",
+                PhoneNumber = "555-555-5555",
+                PhoneNumberConfirmed = false,
+                TwoFactorEnabled = false,
+                LockoutEnd = null,
+                LockoutEnabled = true,
+                AccessFailedCount = 0,
+            },
+
+            new IdentityUser
+            {
+                Id = "efaef2cb-19ca-4141-9f1b-23f8ca48d99b",
+                UserName = "provider3@test.com",
+                NormalizedUserName = "PROVIDER3@TEST.COM",
+                Email = "provider3@test.com",
+                NormalizedEmail = "PROVIDER3@TEST.COM",
+                EmailConfirmed = false,
+                PasswordHash = "AQAAAAEAACcQAAAAEFDWf0ud4BpCDSyizTthtta/CRBm+5vYGv0UNuJ3LbrNakXq23qgzhBWVquC4PR/pg==",
+                SecurityStamp = "EJ6OCU5B4QALLAHLLIL3LFSZVCS3BJB7",
+                ConcurrencyStamp = "ebc8172e-ad24-43d7-8833-f790bb180d88",
+                PhoneNumber = "666-666-6666",
+                PhoneNumberConfirmed = false,
+                TwoFactorEnabled = false,
+                LockoutEnd = null,
+                LockoutEnabled = true,
+                AccessFailedCount = 0,
             }
 
 
 
-                );
+
+
+        );
 
             builder.Entity<Consumer>().HasData(
-                new Consumer { ConsumerId = 1, Address = "7814 W Silver Spring Dr.", City = "Milwaukee", FirstName = "Jacob", LastName = "Townsend", State = "Wisconsin", Zipcode = "53218", IdentityUserId= "5e1c8b30-314c-44ed-b52d-98df6549b8d8" },
-                new Consumer { ConsumerId = 2, Address = "7830 W Silver Spring Dr.", City = "Milwaukee", FirstName = "Eli", LastName = "Manny", State = "Wisconsin", Zipcode = "53218", IdentityUserId= "67ce75b3-f188-44f1-975f-a650b9c8ad52" },
-                new Consumer { ConsumerId = 3, Address = "7818 W Silver Spring Dr.", City = "Milwaukee", FirstName = "Steve", LastName = "Rogers", State = "Wisconsin", Zipcode = "53218", IdentityUserId= "6bd1cc7f-eaa6-4f78-9599-a99f6b1b7593" });
+                new Consumer { ConsumerId = 1, Address = "7814 W Silver Spring Drive", City = "Milwaukee", FirstName = "Jacob", LastName = "Townsend", State = "Wisconsin", Zipcode = "53218", IdentityUserId= "5e1c8b30-314c-44ed-b52d-98df6549b8d8" },
+                new Consumer { ConsumerId = 2, Address = "7830 W Silver Spring Drive", City = "Milwaukee", FirstName = "Eli", LastName = "Manny", State = "Wisconsin", Zipcode = "53218", IdentityUserId= "67ce75b3-f188-44f1-975f-a650b9c8ad52" },
+                new Consumer { ConsumerId = 3, Address = "7818 W Silver Spring Drive", City = "Milwaukee", FirstName = "Steve", LastName = "Rogers", State = "Wisconsin", Zipcode = "53218", IdentityUserId= "6bd1cc7f-eaa6-4f78-9599-a99f6b1b7593" });
+
+            builder.Entity<Provider>().HasData(
+                new Provider { ProviderId = 1, FirstName = "Peter", LastName = "Parker", Address = "5339 W Radcliffe Drive", City = "Brown Deer", State = "Wisconsin", Zipcode = "53223", IdentityUserId = "2be63164-b8af-4596-9796-93ff8cec4bf3" },
+                new Provider { ProviderId = 2, FirstName = "Clark", LastName = "Kent", Address = "5391 W Radcliffe Drive", City = "Brown Deer", State = "Wisconsin", Zipcode = "53223", IdentityUserId = "eef8a61c-1139-4a74-98f1-e06da7dce470" },
+                new Provider { ProviderId = 3, FirstName = "Barry", LastName = "Allen", Address = "5305 W Radcliffe Drive", City = "Brown Deer", State = "Wisconsin", Zipcode = "53223", IdentityUserId = "efaef2cb-19ca-4141-9f1b-23f8ca48d99b" }
+                );
 
 
-                }
+        }
 
 
         public DbSet<Consumer> Consumers { get; set; }
-
         public DbSet<Provider> Providers { get; set; }
         public DbSet<Service> Services { get; set; }
         public DbSet<Order> Orders { get; set; }

@@ -292,23 +292,31 @@ namespace SoloCapstoneProject.Migrations
                     { "78e5203f-174a-4dca-96cb-40dd2a868205", 0, "fd2c3120-eb11-454d-8e13-dcef3c2c65ec", "admin@admin.com", false, true, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAELetqK1tdDcQ1tCJVKaPqBZg9tX1yB03jaIS2odXHCLn4HlHF0uWKN28EdyOf5yb9w==", "000-000-0000", false, "OIAXG7WPVGDGGHI43DKZEH2E76IJ5UJG", false, "admin@admin.com" },
                     { "5e1c8b30-314c-44ed-b52d-98df6549b8d8", 0, "2fc1dd2e-4196-4b84-b33e-6a2704ac5ba3", "consumer1@test.com", false, true, null, "CONSUMER1@TEST.COM", "CONSUMER1@TEST.COM", "AQAAAAEAACcQAAAAEAWQL9XdogA3L8VqBRDO0jZZXkMdtM22Pg01cpQwu4oZOUN1/wYYRxwIi8ivpJGSUg==", "111-111-1111", false, "HZ3FAHIT2KUMEC7PUCWUR6I5KY36DZFR", false, "consumer1@test.com" },
                     { "67ce75b3-f188-44f1-975f-a650b9c8ad52", 0, "6bb19bbd-2d15-4abc-83fc-b7f95032ea39", "consumer2@test.com", false, true, null, "CONSUMER2@TEST.COM", "CONSUMER2@TEST.COM", "AQAAAAEAACcQAAAAEK1dB/PVqfTC8DcFiupV/HKn/GGdcvoA3MBoJ2tN9YiZvtn9xwzWAUKSm6WIxUkoSg==", "222-222-2222", false, "YC2OKQG2JDEXUIP6Q6K2XZSR7RYY5Q2Y", false, "consumer2@test.com" },
-                    { "6bd1cc7f-eaa6-4f78-9599-a99f6b1b7593", 0, "4ef57594-2a66-496d-8c65-fb07bacb25a7", "consumer3@test.com", false, true, null, "CONSUMER3@TEST.COM", "CONSUMER3@TEST.COM", "AQAAAAEAACcQAAAAELLdplS8GfW7zKac+FaD1NfioKkuybbyqEPt2WG8oI7KLloFLkRZhpmcNQhHOE3JJQ==", "333-333-3333", false, "BJXEHOICZWFFMDNRV7AGI2RVZ67ZM3Z3", false, "consumer3@test.com" }
+                    { "6bd1cc7f-eaa6-4f78-9599-a99f6b1b7593", 0, "4ef57594-2a66-496d-8c65-fb07bacb25a7", "consumer3@test.com", false, true, null, "CONSUMER3@TEST.COM", "CONSUMER3@TEST.COM", "AQAAAAEAACcQAAAAELLdplS8GfW7zKac+FaD1NfioKkuybbyqEPt2WG8oI7KLloFLkRZhpmcNQhHOE3JJQ==", "333-333-3333", false, "BJXEHOICZWFFMDNRV7AGI2RVZ67ZM3Z3", false, "consumer3@test.com" },
+                    { "2be63164-b8af-4596-9796-93ff8cec4bf3", 0, "14dbbc88-fd6c-46f7-9ef8-5a5da478afee", "provider1@test.com", false, true, null, "PROVIDER1@TEST.COM", "PROVIDER1@TEST.COM", "AQAAAAEAACcQAAAAEMFLDcxEh+gWl+lnKQOtLBvzvYODU/liVtSTNnj/p5ITsxmajBe6/azXMeUCYwKVkA==", "444-444-4444", false, "HTIXEQVI3JYR65ZTUZTL7AQ57REKRJCK", false, "provider1@test.com" },
+                    { "eef8a61c-1139-4a74-98f1-e06da7dce470", 0, "125170f7-525a-4ce3-ad00-2e207d739924", "provider2@test.com", false, true, null, "PROVIDER2@TEST.COM", "PROVIDER2@TEST.COM", "AQAAAAEAACcQAAAAEPxi84PKc/Sg0cogUGqscB2/U8KQEv9FJCQ8IaCeewrgVa1BZegLI1Wia/v1qSuwGA==", "555-555-5555", false, "JH53TNUXDPNYNVQPH7ISKAIJIZN32ZGF", false, "provider2@test.com" },
+                    { "efaef2cb-19ca-4141-9f1b-23f8ca48d99b", 0, "ebc8172e-ad24-43d7-8833-f790bb180d88", "provider3@test.com", false, true, null, "PROVIDER3@TEST.COM", "PROVIDER3@TEST.COM", "AQAAAAEAACcQAAAAEFDWf0ud4BpCDSyizTthtta/CRBm+5vYGv0UNuJ3LbrNakXq23qgzhBWVquC4PR/pg==", "666-666-6666", false, "EJ6OCU5B4QALLAHLLIL3LFSZVCS3BJB7", false, "provider3@test.com" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Consumers",
                 columns: new[] { "ConsumerId", "Address", "City", "FirstName", "IdentityUserId", "LastName", "State", "Zipcode" },
-                values: new object[] { 1, "7814 W Silver Spring Dr.", "Milwaukee", "Jacob", "5e1c8b30-314c-44ed-b52d-98df6549b8d8", "Townsend", "Wisconsin", "53218" });
+                values: new object[,]
+                {
+                    { 1, "7814 W Silver Spring Drive", "Milwaukee", "Jacob", "5e1c8b30-314c-44ed-b52d-98df6549b8d8", "Townsend", "Wisconsin", "53218" },
+                    { 2, "7830 W Silver Spring Drive", "Milwaukee", "Eli", "67ce75b3-f188-44f1-975f-a650b9c8ad52", "Manny", "Wisconsin", "53218" },
+                    { 3, "7818 W Silver Spring Drive", "Milwaukee", "Steve", "6bd1cc7f-eaa6-4f78-9599-a99f6b1b7593", "Rogers", "Wisconsin", "53218" }
+                });
 
             migrationBuilder.InsertData(
-                table: "Consumers",
-                columns: new[] { "ConsumerId", "Address", "City", "FirstName", "IdentityUserId", "LastName", "State", "Zipcode" },
-                values: new object[] { 2, "7830 W Silver Spring Dr.", "Milwaukee", "Eli", "67ce75b3-f188-44f1-975f-a650b9c8ad52", "Manny", "Wisconsin", "53218" });
-
-            migrationBuilder.InsertData(
-                table: "Consumers",
-                columns: new[] { "ConsumerId", "Address", "City", "FirstName", "IdentityUserId", "LastName", "State", "Zipcode" },
-                values: new object[] { 3, "7818 W Silver Spring Dr.", "Milwaukee", "Steve", "6bd1cc7f-eaa6-4f78-9599-a99f6b1b7593", "Rogers", "Wisconsin", "53218" });
+                table: "Providers",
+                columns: new[] { "ProviderId", "Address", "City", "FirstName", "IdentityUserId", "LastName", "State", "Zipcode" },
+                values: new object[,]
+                {
+                    { 1, "5339 W Radcliffe Drive", "Brown Deer", "Peter", "2be63164-b8af-4596-9796-93ff8cec4bf3", "Parker", "Wisconsin", "53223" },
+                    { 2, "5391 W Radcliffe Drive", "Brown Deer", "Clark", "eef8a61c-1139-4a74-98f1-e06da7dce470", "Kent", "Wisconsin", "53223" },
+                    { 3, "5305 W Radcliffe Drive", "Brown Deer", "Barry", "efaef2cb-19ca-4141-9f1b-23f8ca48d99b", "Allen", "Wisconsin", "53223" }
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
