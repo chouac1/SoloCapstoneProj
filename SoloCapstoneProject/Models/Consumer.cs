@@ -22,6 +22,18 @@ namespace SoloCapstoneProject.Models
         public string City { get; set; }
         public string State { get; set; }
         public string Zipcode { get; set; }
+        //[DisplayName("Request a lawn service")]
+        //public string OneTimePickup { get; set; }
+        //[DisplayName("Start Date")]
+        //public string StartDate { get; set; }
+        //[DisplayName("End Date")]
+        //public string EndDate { get; set; }
+        //[DisplayName("Weekly Lawn Service")]
+        //public string WeeklyService { get; set; }
+        //[DisplayName("Monthly Lawn Service")]
+        //public string MonthlyService { get; set; }
+        //[DisplayName("Service Confirmed")]
+        //public bool isConfirmed { get; set; }
 
         [ForeignKey("IdentityUser")]
         [DisplayName("User Id")]

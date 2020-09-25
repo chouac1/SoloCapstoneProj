@@ -29,15 +29,13 @@ namespace SoloCapstoneProject.Controllers
         {
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var foundId = _context.Consumers.Where(i => i.IdentityUserId == userId).SingleOrDefault();
-            
-
-
+           
             if (foundId == null)
             {
                 return View("Create");
             }
             
-            return View("Details");
+            return View("Details", foundId);
         }
 
         // GET: Consumers/Details/5
@@ -110,6 +108,9 @@ namespace SoloCapstoneProject.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, Consumer consumer)
         {
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            consumer.IdentityUserId = userId;
+
             if (id != consumer.ConsumerId)
             {
                 return NotFound();

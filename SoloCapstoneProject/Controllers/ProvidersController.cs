@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using SoloCapstoneProject.Contracts;
 using SoloCapstoneProject.Data;
 using SoloCapstoneProject.Models;
 
@@ -13,10 +15,13 @@ namespace SoloCapstoneProject.Controllers
     public class ProvidersController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private IRepositoryWrapper _repo;
 
-        public ProvidersController(ApplicationDbContext context)
+
+        public ProvidersController(ApplicationDbContext context, IRepositoryWrapper repo)
         {
             _context = context;
+            _repo = repo;
         }
 
         // GET: Providers
@@ -150,6 +155,22 @@ namespace SoloCapstoneProject.Controllers
             _context.Providers.Remove(provider);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+        }
+
+        [Authorize(Roles = "Admin")]
+        public ActionResult ListOfProviders()
+        {
+            //var providers = _context.Providers.Include(p => p.IdentityUserId);
+            //return View(providers);
+
+            var applicationDbContext = _context.Providers.Include(p => p.IdentityUser);
+            return View(applicationDbContext);
+        }
+
+        public async Task<IActionResult> ConsumerList()
+        {
+            var applicationDbContext = _context.Consumers.Include(c => c.IdentityUser);
+            return View(await applicationDbContext.ToListAsync());
         }
 
         private bool ProviderExists(int id)
