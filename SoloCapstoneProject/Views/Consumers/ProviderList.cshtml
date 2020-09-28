@@ -1,14 +1,20 @@
 ﻿@model IEnumerable<SoloCapstoneProject.Models.Provider>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "ProviderList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
+<h1>Service Providers</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+
+<form asp-controller="Consumers" asp-action="ProviderList">
+    <p>
+        Search A Service: <input type="text" name="SearchString">
+        <input type="submit" value="Filter" />
+    </p>
+</form>
+
 <table class="table">
     <thead>
         <tr>
@@ -31,7 +37,7 @@
                 @Html.DisplayNameFor(model => model.Zipcode)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.IdentityUser)
+                @Html.DisplayNameFor(model => model.Services)
             </th>
             <th></th>
         </tr>
@@ -58,12 +64,12 @@
                 @Html.DisplayFor(modelItem => item.Zipcode)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.IdentityUser.UserName)
+                @Html.DisplayFor(modelItem => item.Services)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.ProviderId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ProviderId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ProviderId">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.ProviderId">Schedule an Appointment</a> 
+                @*<a asp-action="Details" asp-route-id="@item.ProviderId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.ProviderId">Delete</a>*@
             </td>
         </tr>
 }

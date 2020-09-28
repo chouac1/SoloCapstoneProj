@@ -195,8 +195,8 @@ namespace SoloCapstoneProject.Data
 
             builder.Entity<Consumer>().HasData(
                 new Consumer { ConsumerId = 1, Address = "7814 W Silver Spring Drive", City = "Milwaukee", FirstName = "Jacob", LastName = "Townsend", State = "Wisconsin", Zipcode = "53218", IdentityUserId= "5e1c8b30-314c-44ed-b52d-98df6549b8d8" },
-                new Consumer { ConsumerId = 2, Address = "7830 W Silver Spring Drive", City = "Milwaukee", FirstName = "Eli", LastName = "Manny", State = "Wisconsin", Zipcode = "53218", IdentityUserId= "67ce75b3-f188-44f1-975f-a650b9c8ad52" },
-                new Consumer { ConsumerId = 3, Address = "7818 W Silver Spring Drive", City = "Milwaukee", FirstName = "Steve", LastName = "Rogers", State = "Wisconsin", Zipcode = "53218", IdentityUserId= "6bd1cc7f-eaa6-4f78-9599-a99f6b1b7593" });
+                new Consumer { ConsumerId = 2, Address = "8848 N 95th Street", City = "Milwaukee", FirstName = "Eli", LastName = "Manny", State = "Wisconsin", Zipcode = "53224", IdentityUserId= "67ce75b3-f188-44f1-975f-a650b9c8ad52" },
+                new Consumer { ConsumerId = 3, Address = "9100 W Oklahoma Ave", City = "Milwaukee", FirstName = "Steve", LastName = "Rogers", State = "Wisconsin", Zipcode = "53227", IdentityUserId= "6bd1cc7f-eaa6-4f78-9599-a99f6b1b7593" });
 
             builder.Entity<Provider>().HasData(
                 new Provider { ProviderId = 1, FirstName = "Peter", LastName = "Parker", Address = "5339 W Radcliffe Drive", City = "Brown Deer", State = "Wisconsin", Zipcode = "53223", IdentityUserId = "2be63164-b8af-4596-9796-93ff8cec4bf3" },

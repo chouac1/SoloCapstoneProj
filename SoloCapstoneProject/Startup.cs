@@ -16,6 +16,7 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
 using SoloCapstoneProject.Contracts;
 using SoloCapstoneProject.ActionFilters;
+using SoloCapstoneProject.Services;
 
 namespace SoloCapstoneProject
 {
@@ -44,6 +45,11 @@ namespace SoloCapstoneProject
             {
                 config.Filters.Add(typeof(GlobalRouting));
             });
+
+            //google geocoding API
+            services.AddTransient<GeocodingService>();
+
+            services.AddControllersWithViews();
 
             services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
 

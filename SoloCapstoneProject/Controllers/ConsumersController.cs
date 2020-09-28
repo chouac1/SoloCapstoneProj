@@ -10,6 +10,8 @@ using Microsoft.EntityFrameworkCore;
 using SoloCapstoneProject.Contracts;
 using SoloCapstoneProject.Data;
 using SoloCapstoneProject.Models;
+using SoloCapstoneProject.Services;
+using Korzh.EasyQuery.Linq;
 
 namespace SoloCapstoneProject.Controllers
 {
@@ -17,11 +19,13 @@ namespace SoloCapstoneProject.Controllers
     {
         private readonly ApplicationDbContext _context;
         private IRepositoryWrapper _repo;
+        private readonly GeocodingService _geocodingService;
 
-        public ConsumersController(ApplicationDbContext context, IRepositoryWrapper repo)
+        public ConsumersController(ApplicationDbContext context, IRepositoryWrapper repo, GeocodingService geocodingService)
         {
             _context = context;
             _repo = repo;
+            _geocodingService = geocodingService;
         }
 
         // GET: Consumers
@@ -29,13 +33,14 @@ namespace SoloCapstoneProject.Controllers
         {
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var foundId = _context.Consumers.Where(i => i.IdentityUserId == userId).SingleOrDefault();
-           
+
             if (foundId == null)
             {
                 return View("Create");
             }
-            
+
             return View("Details", foundId);
+
         }
 
         // GET: Consumers/Details/5
@@ -43,7 +48,7 @@ namespace SoloCapstoneProject.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                RedirectToAction("Create");
             }
 
             var consumer = await _context.Consumers
@@ -71,15 +76,20 @@ namespace SoloCapstoneProject.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Consumer consumer)
         {
-            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            consumer.IdentityUserId = userId;
 
             if (ModelState.IsValid)
             {
-                _context.Add(consumer);
-                await _context.SaveChangesAsync();
+
+                var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                consumer.IdentityUserId = userId;
+
+                var consumerWithLogLat = await _geocodingService.GetGeoCoding(consumer);
+
+                _context.Add(consumerWithLogLat);
+                _repo.Save();
                 return RedirectToAction(nameof(Index));
             }
+            
             ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id", consumer.IdentityUserId);
             return View("details", consumer);
         }
@@ -110,6 +120,8 @@ namespace SoloCapstoneProject.Controllers
         {
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             consumer.IdentityUserId = userId;
+
+            var consumerWithLogLat = await _geocodingService.GetGeoCoding(consumer);
 
             if (id != consumer.ConsumerId)
             {
@@ -175,7 +187,23 @@ namespace SoloCapstoneProject.Controllers
         public async Task<IActionResult> ConsumerList()
         {
             var applicationDbContext = _context.Consumers.Include(c => c.IdentityUser);
+
+            
             return View(await applicationDbContext.ToListAsync());
+
+        }
+
+        public async Task<IActionResult> ProviderList(string searchString)
+        {
+            var providers = from m in _context.Providers
+                            select m;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                providers = providers.Where(s => s.Services.Contains(searchString));
+            }
+
+            return View(await providers.ToListAsync());
         }
 
         private bool ConsumerExists(int id)

@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SoloCapstoneProject.Contracts;
 using SoloCapstoneProject.Data;
 using SoloCapstoneProject.Models;
+using SoloCapstoneProject.Services;
 
 namespace SoloCapstoneProject.Controllers
 {
@@ -16,19 +17,25 @@ namespace SoloCapstoneProject.Controllers
     {
         private readonly ApplicationDbContext _context;
         private IRepositoryWrapper _repo;
+        private readonly GeocodingService _geocodingService;
 
-
-        public ProvidersController(ApplicationDbContext context, IRepositoryWrapper repo)
+        public ProvidersController(ApplicationDbContext context, IRepositoryWrapper repo, GeocodingService geocodingService)
         {
             _context = context;
-            _repo = repo;
         }
 
         // GET: Providers
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Providers.Include(p => p.IdentityUser);
-            return View(await applicationDbContext.ToListAsync());
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var foundId = _context.Providers.Where(i => i.IdentityUserId == userId).SingleOrDefault();
+
+            if (foundId == null)
+            {
+                return View("Create");
+            }
+
+            return View("Details", foundId);
         }
 
         // GET: Providers/Details/5
@@ -36,12 +43,13 @@ namespace SoloCapstoneProject.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                RedirectToAction("Create");
             }
 
             var provider = await _context.Providers
                 .Include(p => p.IdentityUser)
                 .FirstOrDefaultAsync(m => m.ProviderId == id);
+            
             if (provider == null)
             {
                 return NotFound();
@@ -62,13 +70,17 @@ namespace SoloCapstoneProject.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ProviderId,FirstName,LastName,Address,City,State,Zipcode,IdentityUserId")] Provider provider)
+        public async Task<IActionResult> Create(Provider provider)
         {
             if (ModelState.IsValid)
             {
+                var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                provider.IdentityUserId = userId;
+
                 _context.Add(provider);
-                await _context.SaveChangesAsync();
+                _context.SaveChanges();
                 return RedirectToAction(nameof(Index));
+
             }
             ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id", provider.IdentityUserId);
             return View(provider);
@@ -96,7 +108,7 @@ namespace SoloCapstoneProject.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ProviderId,FirstName,LastName,Address,City,State,Zipcode,IdentityUserId")] Provider provider)
+        public async Task<IActionResult> Edit(int id, Provider provider)
         {
             if (id != provider.ProviderId)
             {
@@ -155,22 +167,6 @@ namespace SoloCapstoneProject.Controllers
             _context.Providers.Remove(provider);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
-        }
-
-        [Authorize(Roles = "Admin")]
-        public ActionResult ListOfProviders()
-        {
-            //var providers = _context.Providers.Include(p => p.IdentityUserId);
-            //return View(providers);
-
-            var applicationDbContext = _context.Providers.Include(p => p.IdentityUser);
-            return View(applicationDbContext);
-        }
-
-        public async Task<IActionResult> ConsumerList()
-        {
-            var applicationDbContext = _context.Consumers.Include(c => c.IdentityUser);
-            return View(await applicationDbContext.ToListAsync());
         }
 
         private bool ProviderExists(int id)

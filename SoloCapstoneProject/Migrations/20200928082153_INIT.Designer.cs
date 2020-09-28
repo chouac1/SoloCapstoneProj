@@ -10,7 +10,7 @@ using SoloCapstoneProject.Data;
 namespace SoloCapstoneProject.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200922210717_INIT")]
+    [Migration("20200928082153_INIT")]
     partial class INIT
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -383,6 +383,12 @@ namespace SoloCapstoneProject.Migrations
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<double>("Latitude")
+                        .HasColumnType("float");
+
+                    b.Property<double>("Longitude")
+                        .HasColumnType("float");
+
                     b.Property<string>("State")
                         .HasColumnType("nvarchar(max)");
 
@@ -404,30 +410,36 @@ namespace SoloCapstoneProject.Migrations
                             FirstName = "Jacob",
                             IdentityUserId = "5e1c8b30-314c-44ed-b52d-98df6549b8d8",
                             LastName = "Townsend",
+                            Latitude = 0.0,
+                            Longitude = 0.0,
                             State = "Wisconsin",
                             Zipcode = "53218"
                         },
                         new
                         {
                             ConsumerId = 2,
-                            Address = "7830 W Silver Spring Drive",
+                            Address = "8848 N 95th Street",
                             City = "Milwaukee",
                             FirstName = "Eli",
                             IdentityUserId = "67ce75b3-f188-44f1-975f-a650b9c8ad52",
                             LastName = "Manny",
+                            Latitude = 0.0,
+                            Longitude = 0.0,
                             State = "Wisconsin",
-                            Zipcode = "53218"
+                            Zipcode = "53224"
                         },
                         new
                         {
                             ConsumerId = 3,
-                            Address = "7818 W Silver Spring Drive",
+                            Address = "9100 W Oklahoma Ave",
                             City = "Milwaukee",
                             FirstName = "Steve",
                             IdentityUserId = "6bd1cc7f-eaa6-4f78-9599-a99f6b1b7593",
                             LastName = "Rogers",
+                            Latitude = 0.0,
+                            Longitude = 0.0,
                             State = "Wisconsin",
-                            Zipcode = "53218"
+                            Zipcode = "53227"
                         });
                 });
 
@@ -479,6 +491,9 @@ namespace SoloCapstoneProject.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Services")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("State")
@@ -539,14 +554,20 @@ namespace SoloCapstoneProject.Migrations
                     b.Property<string>("ClosingHour")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("DayOfWeek")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("OpeningHour")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ProviderId")
                         .HasColumnType("int");
+
+                    b.Property<string>("WeekDay")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("isAvailable")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("isBooked")
+                        .HasColumnType("bit");
 
                     b.HasKey("ProviderAvailablityId");
 

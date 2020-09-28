@@ -2,21 +2,26 @@
 
 @{
     ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h1>Edit</h1>
 
 <h4>ProviderAvailability</h4>
 <hr />
+
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<input type="hidden" asp-for="ProviderId" />
+
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="ProviderAvailablityId" />
             <div class="form-group">
-                <label asp-for="DayOfWeek" class="control-label"></label>
-                <input asp-for="DayOfWeek" class="form-control" />
-                <span asp-validation-for="DayOfWeek" class="text-danger"></span>
+                <label asp-for="WeekDay" class="control-label"></label>
+                <input asp-for="WeekDay" class="form-control" />
+                <span asp-validation-for="WeekDay" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="OpeningHour" class="control-label"></label>
@@ -28,11 +33,16 @@
                 <input asp-for="ClosingHour" class="form-control" />
                 <span asp-validation-for="ClosingHour" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="isAvailable" /> @Html.DisplayNameFor(model => model.isAvailable)
+                </label>
+            </div>
+            @*<div class="form-group">
                 <label asp-for="ProviderId" class="control-label"></label>
                 <select asp-for="ProviderId" class="form-control" asp-items="ViewBag.ProviderId"></select>
                 <span asp-validation-for="ProviderId" class="text-danger"></span>
-            </div>
+            </div>*@
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
@@ -44,6 +54,3 @@
     <a asp-action="Index">Back to List</a>
 </div>
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}

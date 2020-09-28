@@ -15,6 +15,7 @@ namespace SoloCapstoneProject.Models
         public string TypeOfService { get; set; }
         public string Price { get; set; }
         public bool IsActive { get; set; }
+        
         [ForeignKey("Providers")]
         public int ProviderId { get; set; }
         public Provider Providers { get; set; }

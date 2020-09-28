@@ -25,7 +25,7 @@ namespace SoloCapstoneProject.Data
 
         public void Save()
         {
-            throw new NotImplementedException();
+            ApplicationDbContext.SaveChanges();
         }
 
         public void UpdateProviderAvailabilityAccount(ProviderAvailability providerAvailability)
