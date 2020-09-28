@@ -169,6 +169,15 @@ namespace SoloCapstoneProject.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        public async Task<IActionResult> AvailableDates()
+        {
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var foundId = _context.Providers.Where(i => i.IdentityUserId == userId).SingleOrDefault();
+            var foundAvail = _context.ProviderAvailabilities.Where(f => f.ProviderId == foundId.ProviderId).SingleOrDefault();
+
+            return View(foundAvail);
+        }
+
         private bool ProviderExists(int id)
         {
             return _context.Providers.Any(e => e.ProviderId == id);
