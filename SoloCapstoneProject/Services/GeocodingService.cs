@@ -39,6 +39,7 @@ namespace SoloCapstoneProject.Services
 
                 HttpResponseMessage response = await client.GetAsync(apiUrl); //passes in our return URL with all the requested info..
 
+                
                 if (response.IsSuccessStatusCode) //if the request is normal/successs
                     
                     //will search for only the relative info that we are looking for (long. and Lat.)

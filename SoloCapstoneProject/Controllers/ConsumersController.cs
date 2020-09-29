@@ -17,6 +17,7 @@ namespace SoloCapstoneProject.Controllers
 {
     public class ConsumersController : Controller
     {
+        
         private readonly ApplicationDbContext _context;
         private IRepositoryWrapper _repo;
         private readonly GeocodingService _geocodingService;
@@ -28,38 +29,28 @@ namespace SoloCapstoneProject.Controllers
             _geocodingService = geocodingService;
         }
 
+        [Authorize(Roles = "Consumer")]
+
         // GET: Consumers
         public async Task<IActionResult> Index()
+        {
+
+            return RedirectToAction("Details");
+
+        }
+
+        // GET: Consumers/Details/5
+        public async Task<IActionResult> Details()
         {
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var foundId = _context.Consumers.Where(i => i.IdentityUserId == userId).SingleOrDefault();
 
             if (foundId == null)
             {
-                return View("Create");
+                return RedirectToAction("Create");
             }
 
-            return View("Details", foundId);
-
-        }
-
-        // GET: Consumers/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                RedirectToAction("Create");
-            }
-
-            var consumer = await _context.Consumers
-                .Include(c => c.IdentityUser)
-                .FirstOrDefaultAsync(m => m.ConsumerId == id);
-            if (consumer == null)
-            {
-                return NotFound();
-            }
-
-            return View(consumer);
+            return View(foundId);
         }
 
         // GET: Consumers/Create
@@ -90,7 +81,6 @@ namespace SoloCapstoneProject.Controllers
                 return RedirectToAction(nameof(Index));
             }
             
-            ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id", consumer.IdentityUserId);
             return View("details", consumer);
         }
 
@@ -103,11 +93,12 @@ namespace SoloCapstoneProject.Controllers
             }
 
             var consumer = await _context.Consumers.FindAsync(id);
+            
             if (consumer == null)
             {
                 return NotFound();
             }
-            ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id", consumer.IdentityUserId);
+
             return View(consumer);
         }
 
@@ -146,9 +137,9 @@ namespace SoloCapstoneProject.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("details", consumerWithLogLat);
             }
-            ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id", consumer.IdentityUserId);
+
             return View(consumer);
         }
 

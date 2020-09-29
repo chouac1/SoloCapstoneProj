@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -24,6 +25,8 @@ namespace SoloCapstoneProject.Controllers
             _context = context;
         }
 
+        [Authorize(Roles = "Provider")]
+
         // GET: Providers
         public async Task<IActionResult> Index()
         {
@@ -36,6 +39,11 @@ namespace SoloCapstoneProject.Controllers
             }
 
             return View("Details", foundId);
+        }
+
+        public ActionResult ConsumerList(Consumer consumer)
+        {
+            return View(consumer);
         }
 
         // GET: Providers/Details/5
@@ -175,7 +183,7 @@ namespace SoloCapstoneProject.Controllers
             var foundId = _context.Providers.Where(i => i.IdentityUserId == userId).SingleOrDefault();
             var foundAvail = _context.ProviderAvailabilities.Where(f => f.ProviderId == foundId.ProviderId).SingleOrDefault();
 
-            return View(foundAvail);
+            return RedirectToAction("Index","ProviderAvailabilities",foundAvail);
         }
 
         private bool ProviderExists(int id)
