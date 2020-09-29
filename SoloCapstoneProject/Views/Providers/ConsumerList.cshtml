@@ -7,44 +7,35 @@
 
 <h1>Schedule</h1>
 
-@*<p>
-        <a asp-action="Create">Create New</a>
-    </p>*@
-
-@* API Key : AIzaSyBL12MfL6j5xbtVfhKy6jIC-iSAd762g1g *@
-
 
 <head>
     <style>
-        /* Set the size of the div element that contains the map */
+
         #map {
-            height: 400px; /* The height is 400 pixels */
+            height: 200px; /* The height is 400 pixels */
             width: 100%; /* The width is the width of the web page */
         }
     </style>
 </head>
 <body>
     <h3>Map out your customers</h3>
-    <!--The div element for the map -->
+
     <div id="map"></div>
     <script>
-        // Initialize and add the map
+
         var marker;
+
         function initMap() {
 
-            var radcliffe = { lat: @Model.Latitude, lng: @Model.Longitude };
+            var defaultMap = { lat: @Model.Latitude, lng: @Model.Longitude };
 
             var map = new google.maps.Map(
-                document.getElementById('map'), { zoom: 15, center: radcliffe });
+                document.getElementById('map'), { zoom: 15, center: defaultMap });
 
-            marker = new google.maps.Marker({ position: radcliffe, map: map });
+            marker = new google.maps.Marker({ position: defaultMap, map: map });
         }
     </script>
-    <!--Load the API from the specified URL
-    * The async attribute allows the browser to render the page while the API loads
-    * The key parameter will contain your own API key (which is not needed for this tutorial)
-    * The callback parameter executes the initMap() function
-    -->
+
     <script defer
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAMsdaoeePqO9F_hpJsr3xJSPbPfF7dW0U&callback=initMap">
     </script>

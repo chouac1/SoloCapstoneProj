@@ -195,6 +195,8 @@ namespace SoloCapstoneProject.Controllers
             }
 
             return View(await providers.ToListAsync());
+
+
         }
 
         private bool ConsumerExists(int id)

@@ -67,9 +67,8 @@
                 @Html.DisplayFor(modelItem => item.Services)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.ProviderId">Schedule an Appointment</a> 
-                @*<a asp-action="Details" asp-route-id="@item.ProviderId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ProviderId">Delete</a>*@
+                @*<a asp-controller="Providers"
+                   asp-action="Details" asp-route-id="@Model.consumerId">Schedule an Appointment</a>*@
             </td>
         </tr>
 }

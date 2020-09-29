@@ -18,11 +18,12 @@ namespace SoloCapstoneProject.Controllers
     {
         private readonly ApplicationDbContext _context;
         private IRepositoryWrapper _repo;
-        private readonly GeocodingService _geocodingService;
+        //private readonly GeocodingService _geocodingService;
 
-        public ProvidersController(ApplicationDbContext context, IRepositoryWrapper repo, GeocodingService geocodingService)
+        public ProvidersController(ApplicationDbContext context, IRepositoryWrapper repo) /*GeocodingService geocodingService)*/
         {
             _context = context;
+            _repo = repo;
         }
 
         [Authorize(Roles = "Provider")]
@@ -30,15 +31,8 @@ namespace SoloCapstoneProject.Controllers
         // GET: Providers
         public async Task<IActionResult> Index()
         {
-            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var foundId = _context.Providers.Where(i => i.IdentityUserId == userId).SingleOrDefault();
 
-            if (foundId == null)
-            {
-                return View("Create");
-            }
-
-            return View("Details", foundId);
+            return RedirectToAction("Details");
         }
 
         public ActionResult ConsumerList(Consumer consumer)
@@ -49,7 +43,12 @@ namespace SoloCapstoneProject.Controllers
         // GET: Providers/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null)
+
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var foundId = _context.Consumers.Where(i => i.IdentityUserId == userId).SingleOrDefault();
+
+
+            if (foundId == null)
             {
                 RedirectToAction("Create");
             }
@@ -69,7 +68,7 @@ namespace SoloCapstoneProject.Controllers
         // GET: Providers/Create
         public IActionResult Create()
         {
-            ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id");
+
             return View();
         }
 
@@ -90,7 +89,7 @@ namespace SoloCapstoneProject.Controllers
                 return RedirectToAction(nameof(Index));
 
             }
-            ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id", provider.IdentityUserId);
+
             return View(provider);
         }
 
@@ -107,7 +106,7 @@ namespace SoloCapstoneProject.Controllers
             {
                 return NotFound();
             }
-            ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id", provider.IdentityUserId);
+
             return View(provider);
         }
 
