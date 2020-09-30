@@ -18,9 +18,8 @@ namespace SoloCapstoneProject.Controllers
     {
         private readonly ApplicationDbContext _context;
         private IRepositoryWrapper _repo;
-        //private readonly GeocodingService _geocodingService;
 
-        public ProvidersController(ApplicationDbContext context, IRepositoryWrapper repo) /*GeocodingService geocodingService)*/
+        public ProvidersController(ApplicationDbContext context, IRepositoryWrapper repo)
         {
             _context = context;
             _repo = repo;
@@ -33,6 +32,23 @@ namespace SoloCapstoneProject.Controllers
         {
 
             return RedirectToAction("Details");
+        }
+
+
+        public async Task<IActionResult> ListOfProviders(string searchString)
+        {
+            var providers = from m in _context.Providers
+                            select m;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                providers = providers.Where(s => s.Services.Contains(searchString));
+
+            }
+
+            return View(await providers.ToListAsync());
+
+
         }
 
         public ActionResult ConsumerList(Consumer consumer)
@@ -142,7 +158,7 @@ namespace SoloCapstoneProject.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id", provider.IdentityUserId);
+
             return View(provider);
         }
 
@@ -176,14 +192,14 @@ namespace SoloCapstoneProject.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        public async Task<IActionResult> AvailableDates()
-        {
-            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var foundId = _context.Providers.Where(i => i.IdentityUserId == userId).SingleOrDefault();
-            var foundAvail = _context.ProviderAvailabilities.Where(f => f.ProviderId == foundId.ProviderId).SingleOrDefault();
+        //public async Task<IActionResult> AvailableDates()
+        //{
+        //    //var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+        //    //var foundId = _context.Providers.Where(i => i.IdentityUserId == userId).SingleOrDefault();
+        //    //var foundAvail = _context.ProviderAvailabilities.Where(f => f.ProviderId == foundId.ProviderId).ToList();
 
-            return RedirectToAction("Index","ProviderAvailabilities",foundAvail);
-        }
+        //    return RedirectToAction("Index","ProviderAvailabilities", );
+        //}
 
         private bool ProviderExists(int id)
         {

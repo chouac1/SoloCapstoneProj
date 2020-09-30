@@ -31,9 +31,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.isBooked)
             </th>
-            @*<th>
-                @Html.DisplayNameFor(model => model.Providers)
-            </th>*@
+
             <th></th>
         </tr>
     </thead>
@@ -55,9 +53,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.isBooked)
             </td>
-            @*<td>
-                @Html.DisplayFor(modelItem => item.Providers.ProviderId)
-            </td>*@
+
             <td>
                 <a asp-action="Edit" asp-route-id="@item.ProviderAvailablityId">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.ProviderAvailablityId">Details</a> |

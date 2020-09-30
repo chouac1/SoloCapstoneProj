@@ -184,21 +184,6 @@ namespace SoloCapstoneProject.Controllers
 
         }
 
-        public async Task<IActionResult> ProviderList(string searchString)
-        {
-            var providers = from m in _context.Providers
-                            select m;
-
-            if (!String.IsNullOrEmpty(searchString))
-            {
-                providers = providers.Where(s => s.Services.Contains(searchString));
-            }
-
-            return View(await providers.ToListAsync());
-
-
-        }
-
         private bool ConsumerExists(int id)
         {
             return _context.Consumers.Any(e => e.ConsumerId == id);
