@@ -31,7 +31,22 @@ namespace SoloCapstoneProject.Controllers
         public async Task<IActionResult> Index()
         {
 
-            return RedirectToAction("Details");
+            return RedirectToAction("Dashboard");
+        }
+
+        public async Task<IActionResult> Dashboard(int? id)
+        {
+
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var foundProvider = _context.Providers.Where(i => i.IdentityUserId == userId).SingleOrDefault();
+
+
+            if (foundProvider == null)
+            {
+                return RedirectToAction("Create");
+            }
+
+            return View(foundProvider);
         }
 
 
@@ -49,11 +64,6 @@ namespace SoloCapstoneProject.Controllers
             return View(await providers.ToListAsync());
 
 
-        }
-
-        public ActionResult ConsumerList(Consumer consumer)
-        {
-            return View(consumer);
         }
 
         // GET: Providers/Details/5
@@ -142,6 +152,9 @@ namespace SoloCapstoneProject.Controllers
             {
                 try
                 {
+                    var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                    provider.IdentityUserId = userId;
+
                     _context.Update(provider);
                     await _context.SaveChangesAsync();
                 }
@@ -192,19 +205,11 @@ namespace SoloCapstoneProject.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        public async Task<IActionResult> AvailableDates(int? id)
+        public ActionResult Schedule(int? id)
         {
-            //var foundId = _context.Providers.Where(i => i.ProviderId == id).SingleOrDefault(); //finds Provider acct that matches the id passed in..
-            //var availableList = _context.ProviderAvailabilities.Include(a => a.ProviderId); //
+            var matchingProvider = _context.ProviderSchedule.Where(p => p.ProviderId == id);
 
-            var foundProvider = _context.ProviderAvailabilities.Where(f => f.ProviderId == id).SingleOrDefault();
-
-            return RedirectToAction("Schedule", foundProvider);
-        }
-
-        public ActionResult Schedule()
-        {
-            return View();
+            return View(matchingProvider);
         }
 
         private bool ProviderExists(int id)

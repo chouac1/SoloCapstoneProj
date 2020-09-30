@@ -1,14 +1,18 @@
 ﻿@model SoloCapstoneProject.Models.Provider
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Dashboard";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Details</h1>
+<h1>Dashboard</h1>
 
 <div>
-    <h4>Provider Profile</h4>
+
+    <input type="hidden" asp-for="IdentityUserId" />
+
+    <h4>Provider</h4>
+
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
@@ -57,6 +61,7 @@
     </dl>
 </div>
 <div>
-
-    <a asp-action="Schedule" asp-route-id="@Model.ProviderId">See My Schedule</a>
+    <a asp-action="Edit" asp-route-id="@Model.ProviderId">Edit</a> |
+    <a asp-action="Delete" asp-route-id="@Model.ProviderId">Delete</a> |
+    <a asp-action="Schedule" asp-route-id="@Model.ProviderId">My Schedule</a>
 </div>

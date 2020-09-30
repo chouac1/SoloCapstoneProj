@@ -212,7 +212,7 @@ namespace SoloCapstoneProject.Data
         public DbSet<Provider> Providers { get; set; }
         public DbSet<Service> Services { get; set; }
         public DbSet<Order> Orders { get; set; }
-        public DbSet<ProviderSchedule> ProviderAvailabilities { get; set; }
+        public DbSet<ProviderSchedule> ProviderSchedule { get; set; }
 
     }
 }
