@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace SoloCapstoneProject.Models
 {
-    public class ProviderAvailability
+    public class ProviderSchedule
     {
 
         [Key]
-        public int ProviderAvailablityId { get; set; }
+        public int ProviderScheduleId { get; set; }
         [DisplayName("Day of the Week")]
         public string WeekDay { get; set; }
         [DisplayName("Opening Hours")]

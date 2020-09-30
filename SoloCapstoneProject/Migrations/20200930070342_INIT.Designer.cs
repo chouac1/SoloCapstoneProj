@@ -10,7 +10,7 @@ using SoloCapstoneProject.Data;
 namespace SoloCapstoneProject.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200928082153_INIT")]
+    [Migration("20200930070342_INIT")]
     partial class INIT
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -544,9 +544,9 @@ namespace SoloCapstoneProject.Migrations
                         });
                 });
 
-            modelBuilder.Entity("SoloCapstoneProject.Models.ProviderAvailability", b =>
+            modelBuilder.Entity("SoloCapstoneProject.Models.ProviderSchedule", b =>
                 {
-                    b.Property<int>("ProviderAvailablityId")
+                    b.Property<int>("ProviderScheduleId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -569,7 +569,7 @@ namespace SoloCapstoneProject.Migrations
                     b.Property<bool>("isBooked")
                         .HasColumnType("bit");
 
-                    b.HasKey("ProviderAvailablityId");
+                    b.HasKey("ProviderScheduleId");
 
                     b.HasIndex("ProviderId");
 
@@ -682,7 +682,7 @@ namespace SoloCapstoneProject.Migrations
                         .HasForeignKey("IdentityUserId");
                 });
 
-            modelBuilder.Entity("SoloCapstoneProject.Models.ProviderAvailability", b =>
+            modelBuilder.Entity("SoloCapstoneProject.Models.ProviderSchedule", b =>
                 {
                     b.HasOne("SoloCapstoneProject.Models.Provider", "Providers")
                         .WithMany()

@@ -10,7 +10,7 @@ namespace SoloCapstoneProject.Contracts
         //ICarRepository Car { get; } (SAMPLE)
         IConsumerRepository Consumers { get; }
         IOrderRepository Order { get; }
-        IProviderAvailabilityRepository ProviderAvailability { get; }
+        IProviderScheduleRepository ProviderAvailability { get; }
         IProviderRepository Providers { get; }
         IServiceRepository Services { get; }
         void Save();

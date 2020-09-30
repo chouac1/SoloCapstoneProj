@@ -192,14 +192,20 @@ namespace SoloCapstoneProject.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        //public async Task<IActionResult> AvailableDates()
-        //{
-        //    //var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-        //    //var foundId = _context.Providers.Where(i => i.IdentityUserId == userId).SingleOrDefault();
-        //    //var foundAvail = _context.ProviderAvailabilities.Where(f => f.ProviderId == foundId.ProviderId).ToList();
+        public async Task<IActionResult> AvailableDates(int? id)
+        {
+            //var foundId = _context.Providers.Where(i => i.ProviderId == id).SingleOrDefault(); //finds Provider acct that matches the id passed in..
+            //var availableList = _context.ProviderAvailabilities.Include(a => a.ProviderId); //
 
-        //    return RedirectToAction("Index","ProviderAvailabilities", );
-        //}
+            var foundProvider = _context.ProviderAvailabilities.Where(f => f.ProviderId == id).SingleOrDefault();
+
+            return RedirectToAction("Schedule", foundProvider);
+        }
+
+        public ActionResult Schedule()
+        {
+            return View();
+        }
 
         private bool ProviderExists(int id)
         {

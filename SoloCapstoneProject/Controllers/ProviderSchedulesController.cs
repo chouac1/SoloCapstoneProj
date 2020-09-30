@@ -7,15 +7,16 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SoloCapstoneProject.Contracts;
 using SoloCapstoneProject.Data;
+using SoloCapstoneProject.Models;
 
 namespace SoloCapstoneProject.Controllers
 {
-    public class ProviderAvailabilities : Controller
+    public class ProviderSchedulesController : Controller
     {
         private readonly ApplicationDbContext _context;
         private IRepositoryWrapper _repo;
 
-        public ProviderAvailabilities(ApplicationDbContext context, IRepositoryWrapper repo)
+        public ProviderSchedulesController(ApplicationDbContext context, IRepositoryWrapper repo)
         {
             _context = context;
             _repo = repo;
@@ -51,7 +52,7 @@ namespace SoloCapstoneProject.Controllers
         // POST: ProviderAvailabilities/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(ProviderAvailabilities providerAvailabilities)
+        public ActionResult Create(ProviderSchedule providerSchedule)
         {
 
 

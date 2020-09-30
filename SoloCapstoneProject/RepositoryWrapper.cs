@@ -12,7 +12,7 @@ namespace SoloCapstoneProject
         private ApplicationDbContext _context;
         private IConsumerRepository _consumers;
         private IOrderRepository _orders;
-        private IProviderAvailabilityRepository _providerAvailability;
+        private IProviderScheduleRepository _providerAvailability;
         private IProviderRepository _providers;
         private IServiceRepository _services;
 
@@ -45,13 +45,13 @@ namespace SoloCapstoneProject
             }
         }
 
-        public IProviderAvailabilityRepository ProviderAvailability
+        public IProviderScheduleRepository ProviderAvailability
         {
             get
             {
                 if (_providerAvailability == null)
                 {
-                    _providerAvailability = new ProviderAvailabilityRepository(_context);
+                    _providerAvailability = new ProviderScheduleRepository(_context);
                 }
                 return _providerAvailability;
             }

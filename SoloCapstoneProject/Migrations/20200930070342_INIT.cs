@@ -209,7 +209,7 @@ namespace SoloCapstoneProject.Migrations
                 name: "ProviderAvailabilities",
                 columns: table => new
                 {
-                    ProviderAvailablityId = table.Column<int>(nullable: false)
+                    ProviderScheduleId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     WeekDay = table.Column<string>(nullable: true),
                     OpeningHour = table.Column<string>(nullable: true),
@@ -220,7 +220,7 @@ namespace SoloCapstoneProject.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProviderAvailabilities", x => x.ProviderAvailablityId);
+                    table.PrimaryKey("PK_ProviderAvailabilities", x => x.ProviderScheduleId);
                     table.ForeignKey(
                         name: "FK_ProviderAvailabilities_Providers_ProviderId",
                         column: x => x.ProviderId,

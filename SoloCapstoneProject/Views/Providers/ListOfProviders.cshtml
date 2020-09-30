@@ -39,9 +39,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.Services)
             </th>
-            @*<th>
-                @Html.DisplayNameFor(model => model.IdentityUser)
-            </th>*@
+
             <th></th>
         </tr>
     </thead>
@@ -69,13 +67,10 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Services)
             </td>
-            @*<td>
-                @Html.DisplayFor(modelItem => item.IdentityUser.Id)
-            </td>*@
+
             <td>
                 <a asp-action="Details" asp-route-id="@item.ProviderId">Request a service</a>
-                @*<a asp-action="Details" asp-route-id="@item.ProviderId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ProviderId">Delete</a>*@
+
             </td>
         </tr>
 }
