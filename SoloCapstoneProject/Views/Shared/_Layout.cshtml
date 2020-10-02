@@ -6,6 +6,8 @@
     <title>@ViewData["Title"] - GAWN.</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+
+
 </head>
 <body>
     <header>
@@ -25,9 +27,20 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
+
+                        <li class="nav-item dropdown show">
+                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="true">Search for Lawn Providers</a>
+                            <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 37px, 0px); top: 0px; left: 0px; will-change: transform;">
+                                <a class="dropdown-item" asp-area="" asp-controller="Providers" asp-action="ListOfProviders">Search by Services</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="Providers" asp-action="ListOfProviders">Search by Name</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="Providers" asp-action="ListOfProviders">Search by City</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="Providers" asp-action="ListOfProviders">Search by State</a>
+                            </div>
+                        </li>
+
                     </ul>
+                    </div>
                 </div>
-            </div>
         </nav>
     </header>
     <div class="container">

@@ -5,58 +5,57 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<head>
+
+</head>
+
 <h1>Schedule</h1>
 
-<p>
-    <a asp-action="Create">Create A New Schedule</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.WeekDay)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.OpeningHour)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ClosingHour)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.isAvailable)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.isBooked)
-            </th>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.WeekDay)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.OpeningHour)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ClosingHour)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.isAvailable)
+                </th>
+                @*<th>
+                    @Html.DisplayNameFor(model => model.isBooked)
+                </th>*@
 
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.WeekDay)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.OpeningHour)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ClosingHour)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.isAvailable)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.isBooked)
-            </td>
+                <th></th>
+            </tr>
 
-            <td>
-                @*<a asp-action="Edit" asp-route-id="@item.ProviderScheduleId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ProviderScheduleId">Details</a> |*@
-                <a asp-action="Delete" asp-route-id="@item.ProviderScheduleId">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.WeekDay)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.OpeningHour)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ClosingHour)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.isAvailable)
+                    </td>
+                
+                <td>
+                    <a asp-action="Index" asp-controller="Orders" asp-route-id="@item.ProviderId">Book an Appointment</a>
+                </td>
+                    </tr>
+            }
+        </tbody>
+    </table>
+

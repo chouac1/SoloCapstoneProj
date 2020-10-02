@@ -14,14 +14,16 @@ namespace SoloCapstoneProject.Models
         public int OrderId { get; set; }
         public string ServiceDate { get; set; }
         public double? ProviderEstimate { get; set; }
+        public string Comments { get; set; }
+        public bool isAppointConfirmed { get; set; }
 
         [ForeignKey("Consumer")]
         public int ConsumerId { get; set; }
         public Consumer Consumers { get; set; }
 
-        [ForeignKey("Services")]
-        public int ServiceId { get; set; }
+        [ForeignKey("Provider")]
+        public int ProviderId { get; set; }
 
-        public Service Services { get; set; }
+        public Provider Provider { get; set; }
     }
 }

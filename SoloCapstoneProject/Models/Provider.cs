@@ -30,5 +30,6 @@ namespace SoloCapstoneProject.Models
         public IdentityUser IdentityUser { get; set; }
 
 
+
     }
 }

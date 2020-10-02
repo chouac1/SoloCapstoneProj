@@ -206,7 +206,37 @@ namespace SoloCapstoneProject.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ProviderAvailabilities",
+                name: "Orders",
+                columns: table => new
+                {
+                    OrderId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ServiceDate = table.Column<string>(nullable: true),
+                    ProviderEstimate = table.Column<double>(nullable: true),
+                    Comments = table.Column<string>(nullable: true),
+                    isAppointConfirmed = table.Column<bool>(nullable: false),
+                    ConsumerId = table.Column<int>(nullable: false),
+                    ProviderId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Orders", x => x.OrderId);
+                    table.ForeignKey(
+                        name: "FK_Orders_Consumers_ConsumerId",
+                        column: x => x.ConsumerId,
+                        principalTable: "Consumers",
+                        principalColumn: "ConsumerId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Orders_Providers_ProviderId",
+                        column: x => x.ProviderId,
+                        principalTable: "Providers",
+                        principalColumn: "ProviderId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ProviderSchedule",
                 columns: table => new
                 {
                     ProviderScheduleId = table.Column<int>(nullable: false)
@@ -220,9 +250,9 @@ namespace SoloCapstoneProject.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProviderAvailabilities", x => x.ProviderScheduleId);
+                    table.PrimaryKey("PK_ProviderSchedule", x => x.ProviderScheduleId);
                     table.ForeignKey(
-                        name: "FK_ProviderAvailabilities_Providers_ProviderId",
+                        name: "FK_ProviderSchedule_Providers_ProviderId",
                         column: x => x.ProviderId,
                         principalTable: "Providers",
                         principalColumn: "ProviderId",
@@ -248,34 +278,6 @@ namespace SoloCapstoneProject.Migrations
                         column: x => x.ProviderId,
                         principalTable: "Providers",
                         principalColumn: "ProviderId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Orders",
-                columns: table => new
-                {
-                    OrderId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ServiceDate = table.Column<string>(nullable: true),
-                    ProviderEstimate = table.Column<double>(nullable: true),
-                    ConsumerId = table.Column<int>(nullable: false),
-                    ServiceId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Orders", x => x.OrderId);
-                    table.ForeignKey(
-                        name: "FK_Orders_Consumers_ConsumerId",
-                        column: x => x.ConsumerId,
-                        principalTable: "Consumers",
-                        principalColumn: "ConsumerId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Orders_Services_ServiceId",
-                        column: x => x.ServiceId,
-                        principalTable: "Services",
-                        principalColumn: "ServiceId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -373,19 +375,19 @@ namespace SoloCapstoneProject.Migrations
                 column: "ConsumerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Orders_ServiceId",
+                name: "IX_Orders_ProviderId",
                 table: "Orders",
-                column: "ServiceId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ProviderAvailabilities_ProviderId",
-                table: "ProviderAvailabilities",
                 column: "ProviderId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Providers_IdentityUserId",
                 table: "Providers",
                 column: "IdentityUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProviderSchedule_ProviderId",
+                table: "ProviderSchedule",
+                column: "ProviderId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Services_ProviderId",
@@ -414,16 +416,16 @@ namespace SoloCapstoneProject.Migrations
                 name: "Orders");
 
             migrationBuilder.DropTable(
-                name: "ProviderAvailabilities");
+                name: "ProviderSchedule");
+
+            migrationBuilder.DropTable(
+                name: "Services");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "Consumers");
-
-            migrationBuilder.DropTable(
-                name: "Services");
 
             migrationBuilder.DropTable(
                 name: "Providers");

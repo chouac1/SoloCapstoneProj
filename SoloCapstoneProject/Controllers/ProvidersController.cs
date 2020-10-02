@@ -205,11 +205,22 @@ namespace SoloCapstoneProject.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        public ActionResult Test()
+        {
+            return View();
+        }
+
         public ActionResult Schedule(int? id)
         {
+
             var matchingProvider = _context.ProviderSchedule.Where(p => p.ProviderId == id);
 
             return View(matchingProvider);
+        }
+
+        public ActionResult BookAppointment(int? id)
+        {
+            return View();
         }
 
         private bool ProviderExists(int id)

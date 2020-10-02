@@ -14,12 +14,10 @@
         #map {
             height: 300px; /* The height is 400 pixels */
             width: 50%; /* The width is the width of the web page */
-        }
-
-        .column {
-            float: left;
+            float: right;
             width: 50%;
         }
+
 
         .row:after {
             content: "";
@@ -56,7 +54,7 @@
 <div>
     <h4>Consumer</h4>
     <hr />
-    <dl class="row">
+    <div class="row">
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.FirstName)
         </dt>
@@ -98,8 +96,7 @@
 
 <div>
     <a asp-action="Edit" asp-route-id="@Model.ConsumerId">Edit</a> |
-    <a asp-action="Delete" asp-route-id="@Model.ConsumerId">Delete</a> |
-    <a asp-controller="Providers" asp-action="ListOfProviders">Search For Providers</a>
+    <a asp-action="Delete" asp-route-id="@Model.ConsumerId">Delete</a>
 
 </div>
 

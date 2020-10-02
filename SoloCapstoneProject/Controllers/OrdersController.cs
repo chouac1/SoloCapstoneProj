@@ -1,166 +1,119 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
+using SoloCapstoneProject.Contracts;
 using SoloCapstoneProject.Data;
 using SoloCapstoneProject.Models;
+using SQLitePCL;
 
 namespace SoloCapstoneProject.Controllers
 {
     public class OrdersController : Controller
     {
-        private readonly ApplicationDbContext _context;
 
-        public OrdersController(ApplicationDbContext context)
+        private readonly ApplicationDbContext _context;
+        private IRepositoryWrapper _repo;
+
+        public OrdersController(ApplicationDbContext context, IRepositoryWrapper repo)
         {
             _context = context;
+            _repo = repo;
         }
 
-        // GET: Orders
-        public async Task<IActionResult> Index()
+        // GET: OrdersController
+        public ActionResult Index(int id)
         {
-            var applicationDbContext = _context.Orders.Include(o => o.Consumers).Include(o => o.Services);
-            return View(await applicationDbContext.ToListAsync());
+            Provider foundProvider = _context.Providers.Where(p => p.ProviderId == id).SingleOrDefault();
+            Order orderFound = new Order();
+            orderFound.ProviderId = foundProvider.ProviderId;
+
+            return View("Create", orderFound);
         }
 
-        // GET: Orders/Details/5
-        public async Task<IActionResult> Details(int? id)
+        // GET: OrdersController/Details/5
+        public ActionResult ConsumerDetails()
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var foundConsumer = _context.Consumers.Where(f => f.IdentityUserId == userId).SingleOrDefault();
 
-            var order = await _context.Orders
-                .Include(o => o.Consumers)
-                .Include(o => o.Services)
-                .FirstOrDefaultAsync(m => m.OrderId == id);
-            if (order == null)
-            {
-                return NotFound();
-            }
-
-            return View(order);
+            return View(foundConsumer);
         }
 
-        // GET: Orders/Create
-        public IActionResult Create()
+        // GET: OrdersController/Create
+        public ActionResult Create()
         {
-            ViewData["ConsumerId"] = new SelectList(_context.Consumers, "ConsumerId", "ConsumerId");
-            ViewData["ServiceId"] = new SelectList(_context.Services, "ServiceId", "ServiceId");
+
             return View();
         }
 
-        // POST: Orders/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: OrdersController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("OrderId,ServiceDate,ProviderEstimate,ConsumerId,ServiceId")] Order order)
+        public IActionResult Create(int id, Order order)
         {
-            if (ModelState.IsValid)
-            {
-                _context.Add(order);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["ConsumerId"] = new SelectList(_context.Consumers, "ConsumerId", "ConsumerId", order.ConsumerId);
-            ViewData["ServiceId"] = new SelectList(_context.Services, "ServiceId", "ServiceId", order.ServiceId);
-            return View(order);
+
+            id = 4;
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var foundConsumer = _context.Consumers.Where(f => f.IdentityUserId == userId).SingleOrDefault();
+            order.ConsumerId = foundConsumer.ConsumerId;
+            order.ProviderId = id;
+
+            _context.Add(order);
+            _repo.Order.Save();
+            
+            return RedirectToAction("OrderReview",order);
+
         }
 
-        // GET: Orders/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public ActionResult OrderReview()
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var order = await _context.Orders.FindAsync(id);
-            if (order == null)
-            {
-                return NotFound();
-            }
-            ViewData["ConsumerId"] = new SelectList(_context.Consumers, "ConsumerId", "ConsumerId", order.ConsumerId);
-            ViewData["ServiceId"] = new SelectList(_context.Services, "ServiceId", "ServiceId", order.ServiceId);
-            return View(order);
+            return View();
         }
 
-        // POST: Orders/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // GET: OrdersController/Edit/5
+        public ActionResult Edit(int id)
+        {
+            return View();
+        }
+
+        // POST: OrdersController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("OrderId,ServiceDate,ProviderEstimate,ConsumerId,ServiceId")] Order order)
+        public ActionResult Edit(int id, IFormCollection collection)
         {
-            if (id != order.OrderId)
+            try
             {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(order);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!OrderExists(order.OrderId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ConsumerId"] = new SelectList(_context.Consumers, "ConsumerId", "ConsumerId", order.ConsumerId);
-            ViewData["ServiceId"] = new SelectList(_context.Services, "ServiceId", "ServiceId", order.ServiceId);
-            return View(order);
+            catch
+            {
+                return View();
+            }
         }
 
-        // GET: Orders/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        // GET: OrdersController/Delete/5
+        public ActionResult Delete(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var order = await _context.Orders
-                .Include(o => o.Consumers)
-                .Include(o => o.Services)
-                .FirstOrDefaultAsync(m => m.OrderId == id);
-            if (order == null)
-            {
-                return NotFound();
-            }
-
-            return View(order);
+            return View();
         }
 
-        // POST: Orders/Delete/5
-        [HttpPost, ActionName("Delete")]
+        // POST: OrdersController/Delete/5
+        [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public ActionResult Delete(int id, IFormCollection collection)
         {
-            var order = await _context.Orders.FindAsync(id);
-            _context.Orders.Remove(order);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
-
-        private bool OrderExists(int id)
-        {
-            return _context.Orders.Any(e => e.OrderId == id);
+            try
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return View();
+            }
         }
     }
 }

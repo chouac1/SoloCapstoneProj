@@ -10,7 +10,7 @@ using SoloCapstoneProject.Data;
 namespace SoloCapstoneProject.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200930070342_INIT")]
+    [Migration("20201002065417_INIT")]
     partial class INIT
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -450,23 +450,29 @@ namespace SoloCapstoneProject.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Comments")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("ConsumerId")
                         .HasColumnType("int");
 
                     b.Property<double?>("ProviderEstimate")
                         .HasColumnType("float");
 
+                    b.Property<int>("ProviderId")
+                        .HasColumnType("int");
+
                     b.Property<string>("ServiceDate")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ServiceId")
-                        .HasColumnType("int");
+                    b.Property<bool>("isAppointConfirmed")
+                        .HasColumnType("bit");
 
                     b.HasKey("OrderId");
 
                     b.HasIndex("ConsumerId");
 
-                    b.HasIndex("ServiceId");
+                    b.HasIndex("ProviderId");
 
                     b.ToTable("Orders");
                 });
@@ -573,7 +579,7 @@ namespace SoloCapstoneProject.Migrations
 
                     b.HasIndex("ProviderId");
 
-                    b.ToTable("ProviderAvailabilities");
+                    b.ToTable("ProviderSchedule");
                 });
 
             modelBuilder.Entity("SoloCapstoneProject.Models.Service", b =>
@@ -668,9 +674,9 @@ namespace SoloCapstoneProject.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("SoloCapstoneProject.Models.Service", "Services")
+                    b.HasOne("SoloCapstoneProject.Models.Provider", "Provider")
                         .WithMany()
-                        .HasForeignKey("ServiceId")
+                        .HasForeignKey("ProviderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
