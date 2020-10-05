@@ -5,6 +5,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using SoloCapstoneProject.Contracts;
 using SoloCapstoneProject.Data;
 using SoloCapstoneProject.Models;
@@ -25,13 +26,10 @@ namespace SoloCapstoneProject.Controllers
         }
 
         // GET: OrdersController
-        public ActionResult Index(int id)
+        public ActionResult Index()
         {
-            Provider foundProvider = _context.Providers.Where(p => p.ProviderId == id).SingleOrDefault();
-            Order orderFound = new Order();
-            orderFound.ProviderId = foundProvider.ProviderId;
 
-            return View("Create", orderFound);
+            return View();
         }
 
         // GET: OrdersController/Details/5
@@ -41,10 +39,11 @@ namespace SoloCapstoneProject.Controllers
             var foundConsumer = _context.Consumers.Where(f => f.IdentityUserId == userId).SingleOrDefault();
 
             return View(foundConsumer);
+
         }
 
         // GET: OrdersController/Create
-        public ActionResult Create()
+        public ActionResult Create(int id)
         {
 
             return View();
@@ -53,19 +52,20 @@ namespace SoloCapstoneProject.Controllers
         // POST: OrdersController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(int id, Order order)
+        public IActionResult Create(Order order)
         {
 
-            id = 4;
+
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var foundConsumer = _context.Consumers.Where(f => f.IdentityUserId == userId).SingleOrDefault();
+            var foundProvider = _context.Providers.Where(p => p.ProviderId == 4).SingleOrDefault();
             order.ConsumerId = foundConsumer.ConsumerId;
-            order.ProviderId = id;
+            order.ProviderId = 4;
 
             _context.Add(order);
             _repo.Order.Save();
-            
-            return RedirectToAction("OrderReview",order);
+
+            return View("OrderReview", order);
 
         }
 
@@ -75,19 +75,40 @@ namespace SoloCapstoneProject.Controllers
         }
 
         // GET: OrdersController/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<IActionResult> ConsumerEdit(int? id)
         {
-            return View();
+            
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var order = await _context.Orders.FindAsync(id);
+
+            if (order == null)
+            {
+                return NotFound();
+            }
+
+            return View(order);
+
         }
 
         // POST: OrdersController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult ConsumerEdit(int id, Order order)
         {
+
+            var foundOldOrder = _context.Orders.Where(o => o.OrderId == id).SingleOrDefault();
+            foundOldOrder.ServiceDate = order.ServiceDate;
+            foundOldOrder.ConsumerComments = order.ConsumerComments;
+            foundOldOrder.ProviderComments = order.ProviderComments;
+
+            
             try
             {
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Details",foundOldOrder);
             }
             catch
             {
@@ -96,24 +117,104 @@ namespace SoloCapstoneProject.Controllers
         }
 
         // GET: OrdersController/Delete/5
-        public ActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int? id)
         {
-            return View();
+                      
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var order = _context.Orders.Where(o => o.OrderId == id).SingleOrDefault();
+
+            if (order == null)
+            {
+                return NotFound();
+            }
+
+            return View(order);
         }
 
         // POST: OrdersController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Delete(int id)
         {
+
+            Order order = _context.Orders.Where(o=>o.OrderId == id).SingleOrDefault();
+            _context.Orders.Remove(order);
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Index));
+
+        }
+
+        public ActionResult ConsumerRequest(int id)
+        {
+
+            var newOrder = _context.Orders.Where(o => o.OrderId == id).SingleOrDefault();
+            var matchingConsumer = _context.Orders.Where(c => c.ConsumerId == newOrder.ConsumerId);
+
+            return View(matchingConsumer);
+        }
+
+        public ActionResult ProviderRequest(int id)
+        {
+
+            var matchingProvider = _context.Orders.Where(p => p.ProviderId == id);
+            return View(matchingProvider);
+        }
+
+        public ActionResult ProvRequestDetails(int id)
+        {
+
+            var order = _context.Orders.Where(o => o.OrderId == id).SingleOrDefault();
+            return View(order);
+
+        }
+
+        public ActionResult ConfirmedAppointment(int id)
+        {
+            var order = _context.Orders.Where(c => c.OrderId == id).SingleOrDefault();
+            order.isAppointConfirmed = true;
+            _context.SaveChanges();
+            return View("ProvRequestDetails", order);
+
+        }
+
+        public async Task<IActionResult> ProviderEdit(int? id)
+        {
+
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var order = await _context.Orders.FindAsync(id);
+
+            if (order == null)
+            {
+                return NotFound();
+            }
+
+            return View(order);
+
+        }
+
+        public ActionResult ProviderEdit(int id)
+        {
+            Order order = new Order();
+            var foundOldOrder = _context.Orders.Where(o => o.OrderId == id).SingleOrDefault();
+            foundOldOrder.ProviderComments = order.ProviderComments;
+
             try
             {
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("ProvRequestDetails", foundOldOrder);
             }
             catch
             {
                 return View();
             }
+
         }
     }
 }

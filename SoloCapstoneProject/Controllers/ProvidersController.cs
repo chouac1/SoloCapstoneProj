@@ -218,9 +218,12 @@ namespace SoloCapstoneProject.Controllers
             return View(matchingProvider);
         }
 
-        public ActionResult BookAppointment(int? id)
+        public ActionResult ConsumerDetails(int? id)
         {
-            return View();
+            var order = _context.Orders.Where(o => o.OrderId == id).SingleOrDefault();
+            var foundConsumer = _context.Consumers.Where(c => c.ConsumerId == order.ConsumerId).SingleOrDefault();
+            
+            return View(foundConsumer);
         }
 
         private bool ProviderExists(int id)

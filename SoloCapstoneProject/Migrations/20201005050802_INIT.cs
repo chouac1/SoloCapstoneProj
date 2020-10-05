@@ -192,6 +192,7 @@ namespace SoloCapstoneProject.Migrations
                     State = table.Column<string>(nullable: true),
                     Zipcode = table.Column<string>(nullable: true),
                     Services = table.Column<string>(nullable: true),
+                    Rating = table.Column<double>(nullable: false),
                     IdentityUserId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -212,8 +213,10 @@ namespace SoloCapstoneProject.Migrations
                     OrderId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ServiceDate = table.Column<string>(nullable: true),
-                    ProviderEstimate = table.Column<double>(nullable: true),
+                    ProviderEstimate = table.Column<double>(nullable: false),
                     Comments = table.Column<string>(nullable: true),
+                    ProviderComments = table.Column<string>(nullable: true),
+                    ConsumerComments = table.Column<string>(nullable: true),
                     isAppointConfirmed = table.Column<bool>(nullable: false),
                     ConsumerId = table.Column<int>(nullable: false),
                     ProviderId = table.Column<int>(nullable: false)
@@ -317,12 +320,12 @@ namespace SoloCapstoneProject.Migrations
 
             migrationBuilder.InsertData(
                 table: "Providers",
-                columns: new[] { "ProviderId", "Address", "City", "FirstName", "IdentityUserId", "LastName", "Services", "State", "Zipcode" },
+                columns: new[] { "ProviderId", "Address", "City", "FirstName", "IdentityUserId", "LastName", "Rating", "Services", "State", "Zipcode" },
                 values: new object[,]
                 {
-                    { 1, "5339 W Radcliffe Drive", "Brown Deer", "Peter", "2be63164-b8af-4596-9796-93ff8cec4bf3", "Parker", null, "Wisconsin", "53223" },
-                    { 2, "5391 W Radcliffe Drive", "Brown Deer", "Clark", "eef8a61c-1139-4a74-98f1-e06da7dce470", "Kent", null, "Wisconsin", "53223" },
-                    { 3, "5305 W Radcliffe Drive", "Brown Deer", "Barry", "efaef2cb-19ca-4141-9f1b-23f8ca48d99b", "Allen", null, "Wisconsin", "53223" }
+                    { 1, "5339 W Radcliffe Drive", "Brown Deer", "Peter", "2be63164-b8af-4596-9796-93ff8cec4bf3", "Parker", 0.0, null, "Wisconsin", "53223" },
+                    { 2, "5391 W Radcliffe Drive", "Brown Deer", "Clark", "eef8a61c-1139-4a74-98f1-e06da7dce470", "Kent", 0.0, null, "Wisconsin", "53223" },
+                    { 3, "5305 W Radcliffe Drive", "Brown Deer", "Barry", "efaef2cb-19ca-4141-9f1b-23f8ca48d99b", "Allen", 0.0, null, "Wisconsin", "53223" }
                 });
 
             migrationBuilder.CreateIndex(

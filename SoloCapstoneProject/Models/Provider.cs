@@ -23,6 +23,7 @@ namespace SoloCapstoneProject.Models
         public string State { get; set; }
         public string Zipcode { get; set; }
         public string Services { get; set; }
+        public double Rating { get; set; }
 
         [ForeignKey("IdentityUser")]
         [DisplayName("User Id")]

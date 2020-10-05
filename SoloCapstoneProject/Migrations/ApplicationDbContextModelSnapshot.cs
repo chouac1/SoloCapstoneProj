@@ -451,10 +451,16 @@ namespace SoloCapstoneProject.Migrations
                     b.Property<string>("Comments")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("ConsumerComments")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("ConsumerId")
                         .HasColumnType("int");
 
-                    b.Property<double?>("ProviderEstimate")
+                    b.Property<string>("ProviderComments")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("ProviderEstimate")
                         .HasColumnType("float");
 
                     b.Property<int>("ProviderId")
@@ -497,6 +503,9 @@ namespace SoloCapstoneProject.Migrations
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<double>("Rating")
+                        .HasColumnType("float");
+
                     b.Property<string>("Services")
                         .HasColumnType("nvarchar(max)");
 
@@ -521,6 +530,7 @@ namespace SoloCapstoneProject.Migrations
                             FirstName = "Peter",
                             IdentityUserId = "2be63164-b8af-4596-9796-93ff8cec4bf3",
                             LastName = "Parker",
+                            Rating = 0.0,
                             State = "Wisconsin",
                             Zipcode = "53223"
                         },
@@ -532,6 +542,7 @@ namespace SoloCapstoneProject.Migrations
                             FirstName = "Clark",
                             IdentityUserId = "eef8a61c-1139-4a74-98f1-e06da7dce470",
                             LastName = "Kent",
+                            Rating = 0.0,
                             State = "Wisconsin",
                             Zipcode = "53223"
                         },
@@ -543,6 +554,7 @@ namespace SoloCapstoneProject.Migrations
                             FirstName = "Barry",
                             IdentityUserId = "efaef2cb-19ca-4141-9f1b-23f8ca48d99b",
                             LastName = "Allen",
+                            Rating = 0.0,
                             State = "Wisconsin",
                             Zipcode = "53223"
                         });
