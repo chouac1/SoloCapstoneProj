@@ -13,7 +13,7 @@ namespace SoloCapstoneProject.Models
         [Key]
         public int OrderId { get; set; }
         public string ServiceDate { get; set; }
-        public double ProviderEstimate { get; set; }
+        //public double ProviderEstimate { get; set; }
         public string ProviderComments { get; set; }
         public string ConsumerComments { get; set; }
         public bool isAppointConfirmed { get; set; }

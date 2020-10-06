@@ -63,6 +63,20 @@ namespace SoloCapstoneProject.Controllers
 
             return View(await providers.ToListAsync());
 
+        }
+
+        public async Task<IActionResult> ListOfProvidersName(string searchString)
+        {
+            var providers = from m in _context.Providers
+                            select m;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                providers = providers.Where(s => s.FirstName.Contains(searchString));
+
+            }
+
+            return View("ListOfProviders", await providers.ToListAsync());
 
         }
 

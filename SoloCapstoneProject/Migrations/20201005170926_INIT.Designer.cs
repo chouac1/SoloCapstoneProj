@@ -10,7 +10,7 @@ using SoloCapstoneProject.Data;
 namespace SoloCapstoneProject.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20201005050802_INIT")]
+    [Migration("20201005170926_INIT")]
     partial class INIT
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -389,6 +389,9 @@ namespace SoloCapstoneProject.Migrations
                     b.Property<double>("Longitude")
                         .HasColumnType("float");
 
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("State")
                         .HasColumnType("nvarchar(max)");
 
@@ -450,9 +453,6 @@ namespace SoloCapstoneProject.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Comments")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("ConsumerComments")
                         .HasColumnType("nvarchar(max)");
 
@@ -461,9 +461,6 @@ namespace SoloCapstoneProject.Migrations
 
                     b.Property<string>("ProviderComments")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<double>("ProviderEstimate")
-                        .HasColumnType("float");
 
                     b.Property<int>("ProviderId")
                         .HasColumnType("int");
@@ -503,6 +500,9 @@ namespace SoloCapstoneProject.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<double>("Rating")
