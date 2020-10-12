@@ -10,6 +10,8 @@ using SoloCapstoneProject.Contracts;
 using SoloCapstoneProject.Data;
 using SoloCapstoneProject.Models;
 using SQLitePCL;
+using SendGrid;
+using SendGrid.Helpers.Mail;
 
 namespace SoloCapstoneProject.Controllers
 {
@@ -64,6 +66,7 @@ namespace SoloCapstoneProject.Controllers
 
             _context.Add(order);
             _repo.Order.Save();
+
 
             return View("OrderReview", order);
 
@@ -172,13 +175,29 @@ namespace SoloCapstoneProject.Controllers
 
         }
 
-        public ActionResult ConfirmedAppointment(int id)
+        public async Task<ActionResult> ConfirmedAppointment(int id)
         {
             var order = _context.Orders.Where(c => c.OrderId == id).SingleOrDefault();
             order.isAppointConfirmed = true;
             _context.SaveChanges();
+            Execute();
+
             return View("ProvRequestDetails", order);
 
+        }
+
+
+        static async Task Execute()
+        {
+            var apiKey = "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"; 
+            var client = new SendGridClient(apiKey);
+            var from = new EmailAddress("chouac1@gmail.com", "Choua Cha");
+            var subject = "Your appointment has been confirmed!";
+            var to = new EmailAddress("marylamb007.business@gmail.com", "Gawn Service User");
+            var plainTextContent = "Click for more details!";
+            var htmlContent = "<strong>Your appointment has been confirmed! The next thing you might want to do is get in contact with the provider and give him some details or any specifics that you might need! Thanks for using Gawn Services!</strong>";
+            var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
+            var response = await client.SendEmailAsync(msg);
         }
 
         public async Task<IActionResult> ProviderEdit(int? id)
